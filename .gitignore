@@ -1,1 +1,9 @@
 .idea
+.svn
+
+# Dev Composer files
+vendor/*
+
+# Net_Growl .svn
+src/Net_Growl/.svn/*
+
