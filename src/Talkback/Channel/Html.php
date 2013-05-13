@@ -113,7 +113,7 @@ class Html extends ChannelObject
      * Stops all the HTML markup being sent to the client
      * useful for simple HTTP clients
      *
-     * @return CommsConsole
+     * @return Html
      */
     public function setBasicClient()
     {

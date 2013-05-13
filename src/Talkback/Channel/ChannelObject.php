@@ -12,7 +12,7 @@ use Psr\Log\InvalidArgumentException;
 use Talkback\Object;
 
 /**
- * This is the root Object for all Comms classes
+ * This is the root Object for all ChannelLauncher classes
  * They should all inherit this class and build
  */
 class ChannelObject extends Object implements ChannelInterface

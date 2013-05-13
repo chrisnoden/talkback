@@ -15,8 +15,8 @@ use Talkback\Comms\ChannelObject;
 
 /**
  * The Talkback debugging/logging class
- * This works by adding a layer of detail and intelligence to the Comms objects
- * You add one or many Comms objects and Handlers and each is sent any
+ * This works by adding a layer of detail and intelligence to the ChannelLauncher objects
+ * You add one or many ChannelLauncher objects and Handlers and each is sent any
  * log messages that are received by this class
  */
 final class Router extends AbstractLogger implements LoggerInterface
@@ -49,7 +49,7 @@ final class Router extends AbstractLogger implements LoggerInterface
 
 
     /**
-     * Add a SAL Comms channel to our framework debugger
+     * Add a SAL ChannelLauncher channel to our framework debugger
      * @static
      * @param $levels int bitwise set of log levels (eg Psr\Log\LogLevel::INFO)
      * @param ChannelObject $oHandler

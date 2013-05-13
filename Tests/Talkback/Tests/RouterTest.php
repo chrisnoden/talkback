@@ -58,7 +58,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
 //    public function testCommsFile()
 //    {
-//        $obj = Comms::File($this->_testFileName);
+//        $obj = ChannelLauncher::File($this->_testFileName);
 //        $this->assertInstanceOf('Comms_File', $obj);
 //        $this->assertInstanceOf('Comms_Base', $obj);
 //        $this->assertInstanceOf('Object', $obj);
@@ -73,13 +73,13 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 //        $this->setExpectedException(
 //            'SalInvalidArgumentException', 'filename must be an absolute filename in a writeable directory'
 //        );
-//        $obj = Comms::File('');
-//        $obj = Comms::File($this->_invalidFileName);
+//        $obj = ChannelLauncher::File('');
+//        $obj = ChannelLauncher::File($this->_invalidFileName);
 //    }
 //
 //    public function testCommsGrowl()
 //    {
-//        $obj = Comms::Growl('testapp');
+//        $obj = ChannelLauncher::Growl('testapp');
 //        $this->assertInstanceOf('Comms_Growl', $obj);
 //        $this->assertInstanceOf('Comms_Base', $obj);
 //        $this->assertInstanceOf('Object', $obj);
@@ -102,7 +102,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 //
 //    public function testCommsProwl()
 //    {
-//        $obj = Comms::Prowl('My Test App', 'testapikey');
+//        $obj = ChannelLauncher::Prowl('My Test App', 'testapikey');
 //        $this->assertInstanceOf('Comms_Prowl', $obj);
 //    }
 //

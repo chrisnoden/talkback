@@ -11,6 +11,7 @@ namespace Talkback\Channel;
 
 
 use Psr\Log\InvalidArgumentException;
+use Talkback\Exception\ChannelTargetException;
 
 /**
  * Uses the Prowl API to send messages to the Prowl app
@@ -70,16 +71,17 @@ class Prowl extends ChannelObject
     /**
      * Send the message through the Prowl API
      * @param $message
+     * @throws ChannelTargetException
      */
     private function sendProwlMessage($message)
     {
         // We can only send a message if we have at least on API key
         if (count($this->_aApiKey) == 0) {
-            throw new CommsTargetException("Prowl requires you add at least one ApiKey");
+            throw new ChannelTargetException("Prowl requires you add at least one ApiKey");
         }
         // We need an eventName
         if (!isset($this->_eventName)) {
-            throw new CommsTargetException("Prowl requires you set an eventName up to 1024 chars");
+            throw new ChannelTargetException("Prowl requires you set an eventName up to 1024 chars");
         }
 
         // Use \Prowl\SecureConnector to make cUrl use SSL
@@ -107,13 +109,14 @@ class Prowl extends ChannelObject
             $oResponse = $oProwl->push($oMsg);
 
             if ($oResponse->isError()) {
-                Debug::log($oResponse->getErrorAsString(), Debug::NOTICE);
+//                @todo make this work properly
+//                Debug::log($oResponse->getErrorAsString(), Debug::NOTICE);
             }
 
         } catch (\InvalidArgumentException $oIAE) {
             throw new InvalidArgumentException ($oIAE->getMessage());
         } catch (\OutOfRangeException $oOORE) {
-            throw new CommsTargetException($oOORE->getMessage());
+            throw new ChannelTargetException($oOORE->getMessage());
         }
     }
 

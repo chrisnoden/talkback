@@ -11,6 +11,7 @@ namespace Talkback\Channel;
 
 
 use Psr\Log\InvalidArgumentException;
+use Talkback\Exception\ChannelTargetException;
 
 /**
  * Open a file so that we can write to it through our ChannelLauncher
@@ -51,7 +52,7 @@ class File extends ChannelObject
 
     /**
      * Opens the file handler for append
-     * @throws CommsTargetException
+     * @throws ChannelTargetException
      */
     protected function openFH()
     {
@@ -61,10 +62,10 @@ class File extends ChannelObject
                 if (is_resource($fh)) {
                     $this->_fh = $fh;
                 } else {
-                    throw new CommsTargetException(sprintf("Invalid filename, unable to open for append (%s)", $this->_filename));
+                    throw new ChannelTargetException(sprintf("Invalid filename, unable to open for append (%s)", $this->_filename));
                 }
             } else {
-                throw new CommsTargetException(sprintf("Invalid filename: %s", $this->_filename));
+                throw new ChannelTargetException(sprintf("Invalid filename: %s", $this->_filename));
             }
         }
     }

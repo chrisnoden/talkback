@@ -21,10 +21,10 @@ class ChannelLauncher
     {
         try {
             if (PHP_SAPI == 'cli') {
-                $oComms = new CommsConsole();
+                $oComms = new Console();
                 return $oComms;
             } else {
-                $oComms = new CommsHTML();
+                $oComms = new Html();
                 if (isset($_SERVER['HTTP_USER_AGENT']) && substr($_SERVER['HTTP_USER_AGENT'], 0, 13) == 'HTTP%20Client') {
                     ini_set('html_errors', 0); // disable HTML markup in errors (works on xDebug too)
                     $oComms->setBasicClient();
@@ -38,15 +38,15 @@ class ChannelLauncher
 
 
     /**
-     * @param $filename filename where the file will be created or appended
+     * @param $filename string filename where the file will be created or appended
      * @static
-     * @return CommsFile
+     * @return File
      * @throws \Exception
      */
     public static function File($filename)
     {
         try {
-            $oComms = new CommsFile();
+            $oComms = new File();
             $oComms->setFilename($filename);
             return $oComms;
         } catch (\Exception $ex) {
@@ -56,15 +56,15 @@ class ChannelLauncher
 
 
     /**
-     * @param $appName Application name used by Growl
+     * @param $appName string Application name used by Growl
      * @static
-     * @return CommsGrowl
+     * @return Growl
      * @throws \Exception
      */
     public static function Growl($appName)
     {
         try {
-            $oComms = new CommsGrowl($appName);
+            $oComms = new Growl($appName);
             return $oComms;
         } catch (\Exception $ex) {
             throw $ex;
@@ -92,13 +92,13 @@ class ChannelLauncher
      * @static
      * @param $appName
      * @param $apiKey You can add up to 5 Prowl Api Keys - but need at least 1
-     * @return CommsProwl
+     * @return Prowl
      * @throws \Exception
      */
     public static function Prowl($appName, $apiKey)
     {
         try {
-            $oComms = new CommsProwl($appName, $apiKey);
+            $oComms = new Prowl($appName, $apiKey);
             return $oComms;
         } catch (\Exception $ex) {
             throw $ex;

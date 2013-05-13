@@ -17,7 +17,7 @@ class SyslogTest extends \PHPUnit_Framework_TestCase
 
 //    public function testSyslog()
 //    {
-//        $obj = Comms::Syslog('My Test Logger');
+//        $obj = ChannelLauncher::Syslog('My Test Logger');
 //        $this->assertInstanceOf('CommsSyslog', $obj);
 //        $this->assertInstanceOf('ChannelObject', $obj);
 //        $this->assertInstanceOf('Object', $obj);
