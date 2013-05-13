@@ -7,20 +7,20 @@
  */
 
 
-namespace Talkback\Comms;
+namespace Talkback\Channel;
 
 
 use Psr\Log\InvalidArgumentException;
 
 /**
- * Open a file so that we can write to it through our Comms
- * methods. Typically a CommsFile object is used as the place for project logs
+ * Open a file so that we can write to it through our ChannelLauncher
+ * methods. Typically a File object is used as the place for project logs
  *
  * example:
- * $filelog = Comms::File('logs/hello.log');
+ * $filelog = ChannelLauncher::File('logs/hello.log');
  * $filelog->error()->write("This is a log message set at error level");
  */
-class CommsFile extends ChannelObject
+class File extends ChannelObject
 {
     /**
      * @var string
@@ -133,7 +133,7 @@ class CommsFile extends ChannelObject
 
 
     /**
-     * @return CommsFile
+     * @return File
      */
     public function addTimestamp()
     {

@@ -7,11 +7,11 @@
  */
 
 
-namespace Talkback\Comms;
+namespace Talkback\Channel;
 
 use Psr\Log\InvalidArgumentException;
 
-class CommsGrowl extends ChannelObject
+class Growl extends ChannelObject
 {
 
     /**

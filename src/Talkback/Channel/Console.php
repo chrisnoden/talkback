@@ -7,13 +7,13 @@
  */
 
 
-namespace Talkback\Comms;
+namespace Talkback\Channel;
 
 
 /**
  * This class also implements basic console logging
  */
-class CommsConsole extends ChannelObject
+class Console extends ChannelObject
 {
 
 

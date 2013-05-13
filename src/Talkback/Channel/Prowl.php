@@ -7,7 +7,7 @@
  */
 
 
-namespace Talkback\Comms;
+namespace Talkback\Channel;
 
 
 use Psr\Log\InvalidArgumentException;
@@ -16,7 +16,7 @@ use Psr\Log\InvalidArgumentException;
  * Uses the Prowl API to send messages to the Prowl app
  * Has a rudimentary de-duper to stop you getting duplicate messages
  */
-class CommsProwl extends ChannelObject
+class Prowl extends ChannelObject
 {
 
     /**

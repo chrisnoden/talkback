@@ -7,14 +7,14 @@
  */
 
 
-namespace Talkback\Comms;
+namespace Talkback\Channel;
 
 
 /**
  * This class implements HTML logging
  * storing the messages and outputting them after your script has terminated
  */
-class CommsHTML extends ChannelObject
+class Html extends ChannelObject
 {
 
     /**

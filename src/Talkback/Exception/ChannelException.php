@@ -1,14 +1,15 @@
 <?php
 /**
  * Created by Chris Noden using JetBrains PhpStorm.
- * 
+ *
  * @author Chris Noden, @chrisnoden
  * @copyright (c) 2009 to 2013 Chris Noden
  */
 
-namespace Talkback\Comms;
+namespace Talkback\Exception;
 
 /**
- * There is a problem with the target resource
+ * Core ChannelLauncher Exception - good fallback
  */
-class CommsTargetException extends CommsException {}
+class ChannelException extends \Exception {}
+
