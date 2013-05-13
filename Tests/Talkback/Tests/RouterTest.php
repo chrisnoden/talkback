@@ -9,7 +9,7 @@
 namespace Talkback\Tests\Talkback;
 
 
-use Talkback\Comms\Comms;
+use Talkback\Router;
 
 class RouterTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,14 +23,13 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         $this->_invalidFileName = DIRECTORY_SEPARATOR . 'invalidpath' . DIRECTORY_SEPARATOR . 'file.log';
     }
 
-//    public function testCommsBasic()
-//    {
-//        $obj = Comms::Basic();
-//        $this->assertInstanceOf('Comms_Console', $obj);
-//        $this->assertInstanceOf('Comms_Base', $obj);
-//        $this->assertInstanceOf('Object', $obj);
-//    }
-//
+    public function testObjectInstantiation()
+    {
+        $obj = new Router();
+        $this->assertInstanceOf('Psr\Log\AbstractLogger', $obj);
+        $this->assertInstanceOf('Psr\Log\LoggerInterface', $obj);
+    }
+
 //    public function testCommsFile()
 //    {
 //        $obj = Comms::File($this->_testFileName);

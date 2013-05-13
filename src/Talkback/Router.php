@@ -12,7 +12,6 @@ use Psr\Log\AbstractLogger;
 use Psr\Log\LogLevel;
 use Psr\Log\LoggerInterface;
 use Talkback\Comms\CommsBase;
-use Talkback\Insight\SourceFile;
 
 /**
  * The Talkback debugging/logging class
