@@ -16,7 +16,7 @@ use Psr\Log\InvalidArgumentException;
  * Uses the Prowl API to send messages to the Prowl app
  * Has a rudimentary de-duper to stop you getting duplicate messages
  */
-class CommsProwl extends CommsBase
+class CommsProwl extends ChannelObject
 {
 
     /**

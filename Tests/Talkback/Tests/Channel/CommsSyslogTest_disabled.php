@@ -19,7 +19,7 @@ class SyslogTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $obj = Comms::Syslog('My Test Logger');
 //        $this->assertInstanceOf('CommsSyslog', $obj);
-//        $this->assertInstanceOf('CommsBase', $obj);
+//        $this->assertInstanceOf('ChannelObject', $obj);
 //        $this->assertInstanceOf('Object', $obj);
 //        $this->assertEquals('MyTestLogger', $obj->getName());
 //        $obj->setOption(LOG_ODELAY | LOG_PID); // should be fine

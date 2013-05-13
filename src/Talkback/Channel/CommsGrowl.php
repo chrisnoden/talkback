@@ -11,7 +11,7 @@ namespace Talkback\Comms;
 
 use Psr\Log\InvalidArgumentException;
 
-class CommsGrowl extends CommsBase
+class CommsGrowl extends ChannelObject
 {
 
     /**
@@ -113,7 +113,7 @@ class CommsGrowl extends CommsBase
      * Send the message to Growl
      *
      * @param string $message
-     * @return CommsBase|void
+     * @return ChannelObject|void
      * @throws \Net_Growl_Exception
      */
     public function write($message)

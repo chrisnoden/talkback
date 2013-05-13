@@ -15,7 +15,7 @@ class Comms
     /**
      * A fall-back channel which just outputs to console/stdout/browser
      *
-     * @return CommsBase
+     * @return ChannelObject
      * @throws \Exception
      */
     public static function Basic()

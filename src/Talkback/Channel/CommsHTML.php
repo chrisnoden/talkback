@@ -14,7 +14,7 @@ namespace Talkback\Comms;
  * This class implements HTML logging
  * storing the messages and outputting them after your script has terminated
  */
-class CommsHTML extends CommsBase
+class CommsHTML extends ChannelObject
 {
 
     /**
@@ -88,7 +88,7 @@ class CommsHTML extends CommsBase
 
     /**
      * @param $msg string output the string
-     * @return CommsBase
+     * @return ChannelObject
      */
     public function write($msg)
     {

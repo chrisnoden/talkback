@@ -6,17 +6,16 @@
  * @copyright (c) 2009 to 2013 Chris Noden
  */
 
+namespace Talkback\Channel;
 
-namespace Talkback\Comms;
-
-
+use Psr\Log\InvalidArgumentException;
 use Talkback\Object;
 
 /**
  * This is the root Object for all Comms classes
  * They should all inherit this class and build
  */
-class CommsBase extends Object implements CommsInterface
+class ChannelObject extends Object implements ChannelInterface
 {
 
     /**
@@ -169,8 +168,8 @@ class CommsBase extends Object implements CommsInterface
      * Add a field/context to our message
      *
      * @param $name
-     * @return CommsBase
-     * @throws SalInvalidArgumentException
+     * @return ChannelObject
+     * @throws \Psr\Log\InvalidArgumentException
      */
     public function addField($name)
     {
@@ -178,7 +177,7 @@ class CommsBase extends Object implements CommsInterface
             $name = trim($name);
             $this->_aFields[$name] = false;
         } else {
-            throw new SalInvalidArgumentException("field name must be a string");
+            throw new InvalidArgumentException("field name must be a string");
         }
         return $this;
     }
@@ -201,7 +200,7 @@ class CommsBase extends Object implements CommsInterface
      *
      * @param $fieldName
      * @param $displayName
-     * @return CommsBase
+     * @return ChannelObject
      */
     public function showFieldName($fieldName, $displayName)
     {
@@ -214,7 +213,7 @@ class CommsBase extends Object implements CommsInterface
      * Disable output to the channel
      * NB - the channel can still choose to ignore this
      *
-     * @return CommsBase
+     * @return ChannelObject
      */
     public function disable()
     {
@@ -226,7 +225,7 @@ class CommsBase extends Object implements CommsInterface
     /**
      * Enable output to the channel (default)
      *
-     * @return CommsBase
+     * @return ChannelObject
      */
     public function enable()
     {
@@ -237,7 +236,7 @@ class CommsBase extends Object implements CommsInterface
 
     /**
      * @param $delimiter
-     * @return CommsBase
+     * @return ChannelObject
      */
     public function setFieldDelimiter($delimiter)
     {

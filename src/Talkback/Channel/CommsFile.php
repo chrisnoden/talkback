@@ -20,7 +20,7 @@ use Psr\Log\InvalidArgumentException;
  * $filelog = Comms::File('logs/hello.log');
  * $filelog->error()->write("This is a log message set at error level");
  */
-class CommsFile extends CommsBase
+class CommsFile extends ChannelObject
 {
     /**
      * @var string

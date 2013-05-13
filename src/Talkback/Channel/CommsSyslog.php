@@ -16,7 +16,7 @@ use Psr\Log\InvalidArgumentException;
  * Provides a Syslog messaging object
  * So you can send messages to Syslog
  */
-class CommsSyslog extends CommsBase
+class CommsSyslog extends ChannelObject
 {
     /**
      * @var int
@@ -172,7 +172,7 @@ class CommsSyslog extends CommsBase
 
     /**
      * @param string $message
-     * @return CommsBase|void
+     * @return ChannelObject|void
      */
     public function write($message)
     {

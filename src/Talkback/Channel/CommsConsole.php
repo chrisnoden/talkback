@@ -13,7 +13,7 @@ namespace Talkback\Comms;
 /**
  * This class also implements basic console logging
  */
-class CommsConsole extends CommsBase
+class CommsConsole extends ChannelObject
 {
 
 
@@ -34,7 +34,7 @@ class CommsConsole extends CommsBase
 
     /**
      * @param $msg string output the string
-     * @return CommsBase
+     * @return ChannelObject
      */
     public function write($msg)
     {

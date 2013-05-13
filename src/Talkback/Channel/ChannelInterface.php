@@ -1,17 +1,14 @@
 <?php
 /**
  * Created by Chris Noden using JetBrains PhpStorm.
- *
+ * 
  * @author Chris Noden, @chrisnoden
  * @copyright (c) 2009 to 2013 Chris Noden
  */
 
-namespace Talkback\Comms;
+namespace Talkback\Channel;
 
-/**
- * All Comms classes must implement this Interface
- */
-interface CommsInterface
+interface ChannelInterface
 {
 
     /**
