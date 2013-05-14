@@ -109,7 +109,7 @@ class Syslog extends ChannelObject
 
     /**
      * @param $name
-     * @throws \Psr\Log\InvalidArgumentException
+     * @throws \Talkback\Exception\InvalidArgumentException
      */
     public function setName($name)
     {

@@ -91,19 +91,6 @@ class ChannelLauncherTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * Basic assertions of a new Syslog Channel object
-     */
-    public function testSyslogChannel()
-    {
-        $obj = ChannelLauncher::Syslog('testapp');
-        $this->assertInstanceOf('Talkback\Channel\Syslog', $obj);
-        $this->assertInstanceOf('Talkback\Channel\ChannelObject', $obj);
-        $this->assertInstanceOf('Talkback\Object', $obj);
-        $this->assertInstanceOf('Talkback\Channel\Channelinterface', $obj);
-    }
-
-
-    /**
      * Basic assertions of a new Html Channel object
      */
     public function testHtmlChannel()
