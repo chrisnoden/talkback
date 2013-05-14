@@ -47,18 +47,6 @@ class SyslogTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * Syslog LogLevel must be valid
-     */
-//    public function testSyslogInvalidLevelException()
-//    {
-//        $obj = new Syslog('test app');
-//        $this->setExpectedException(
-//            'Talkback\Exception\InvalidArgumentException', 'Invalid log $level, must be one of debug, info, notice, warning, error, critical, alert, emergency'
-//        );
-//        $obj->log('invalid', 'Test of Exception');
-//    }
-
-    /**
      * setName() method accepts a string up to 30 chars
      */
     public function testLoggerSyslogSetNameExceptions()
@@ -70,6 +58,10 @@ class SyslogTest extends \PHPUnit_Framework_TestCase
         $obj->setName('this name is too long to fit in the syslog object so should raise an exception');
     }
 
+
+    /**
+     * Test the various facility levels of the Syslog Channel
+     */
     public function testSyslogSetFacilityExceptions()
     {
         $obj = new Syslog('test app');
@@ -115,6 +107,10 @@ class SyslogTest extends \PHPUnit_Framework_TestCase
         if ($fail) $this->fail("An expected exception has not been raised");
     }
 
+
+    /**
+     * Test the various Option valus of the Syslog Channel
+     */
     public function testSyslogSetOptionExceptions()
     {
         $obj = new Syslog('test app');
