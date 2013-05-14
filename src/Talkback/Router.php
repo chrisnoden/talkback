@@ -13,6 +13,7 @@ use Psr\Log\LogLevel;
 use Psr\Log\LoggerInterface;
 use Talkback\Channel\ChannelLauncher;
 use Talkback\Channel\ChannelObject;
+use Talkback\Exception\InvalidArgumentException;
 
 /**
  * The Talkback debugging/logging class
@@ -36,6 +37,10 @@ final class Router extends AbstractLogger
      */
     private $_aLoggers = array();
     /**
+     * @var array of valid LogLevels
+     */
+    private $_aValidLogLevels = array();
+    /**
      * @var bool if true then notice & warning logs are completely ignored
      */
     private $_block = false;
@@ -45,42 +50,35 @@ final class Router extends AbstractLogger
     private $_name = 'Talkback';
 
 
-    public function init()
-    {}
+    public function __construct()
+    {
+        // populate our array of valid LogLevels using Reflection
+
+        /**
+         * @var $t \Psr\Log\LogLevel
+         */
+        $t = new LogLevel();
+        $r = new \ReflectionObject($t);
+        $this->_aValidLogLevels = $r->getConstants();
+    }
 
 
     /**
      * Add a ChannelLauncher object to our framework debugger
      *
      * @static
-     * @param $levels int bitwise set of log levels (eg Psr\Log\LogLevel::INFO)
+     * @param $aLevels array set of log levels (eg Psr\Log\LogLevel::INFO)
      * @param ChannelObject $oHandler
      */
-    public function addChannel($levels, ChannelObject $oHandler)
+    public function addChannel(array $aLevels, ChannelObject $oHandler)
     {
-        if ($levels & LogLevel::DEBUG) {
-            $this->addHandler(LogLevel::DEBUG, $oHandler);
-        }
-        if ($levels & LogLevel::INFO) {
-            $this->addHandler(LogLevel::INFO, $oHandler);
-        }
-        if ($levels & LogLevel::NOTICE) {
-            $this->addHandler(LogLevel::NOTICE, $oHandler);
-        }
-        if ($levels & LogLevel::WARNING) {
-            $this->addHandler(LogLevel::WARNING, $oHandler);
-        }
-        if ($levels & LogLevel::ERROR) {
-            $this->addHandler(LogLevel::ERROR, $oHandler);
-        }
-        if ($levels & LogLevel::CRITICAL) {
-            $this->addHandler(LogLevel::CRITICAL, $oHandler);
-        }
-        if ($levels & LogLevel::EMERGENCY) {
-            $this->addHandler(LogLevel::EMERGENCY, $oHandler);
-        }
-        if ($levels & LogLevel::ALERT) {
-            $this->addHandler(LogLevel::ALERT, $oHandler);
+        foreach ($aLevels AS $logLevel)
+        {
+            $logLevel = strtolower($logLevel);
+            if (!in_array($logLevel, $this->_aValidLogLevels)) {
+                throw new InvalidArgumentException('addChannel expects an array of valid LogLevel const values');
+            }
+            $this->addHandler($logLevel, $oHandler);
         }
     }
 
@@ -159,9 +157,6 @@ final class Router extends AbstractLogger
      */
     public function log($message, $level = LogLevel::INFO, array $context=array())
     {
-        if (empty($this->_aFields)) {
-            $this->init();
-        }
         $oSource = self::buildSourceObject();
         $logFilename = $oSource->getFilename();
 
