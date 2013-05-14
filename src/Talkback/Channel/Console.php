@@ -24,12 +24,6 @@ class Console extends ChannelObject
     }
 
 
-    public function __destruct()
-    {
-        parent::__destruct();
-    }
-
-
     /**
      * @param $msg string output the string
      * @return ChannelObject

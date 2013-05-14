@@ -30,4 +30,16 @@ class Object {
         return $class;
     }
 
+
+    /**
+     * Object-to-string conversion.
+     * Each class can override this method as necessary.
+     *
+     * @return string name of this class
+     */
+    public function __toString() {
+        $class = get_class($this);
+        return $class;
+    }
+
 }

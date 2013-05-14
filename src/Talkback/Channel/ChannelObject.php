@@ -8,7 +8,8 @@
 
 namespace Talkback\Channel;
 
-use Psr\Log\InvalidArgumentException;
+use Talkback\Exception\InvalidArgumentException;
+use Psr\Log\LogLevel;
 use Talkback\Object;
 
 /**
@@ -111,39 +112,18 @@ class ChannelObject extends Object implements ChannelInterface
     /**
      * mainly used for logging/debugging - sets the log level
      *
-     * @param $level
+     * @param $level \Psr\Log\LogLevel use one of \Psr\Log\LogLevel constants
      */
     public function setLevel($level)
     {
-        if (is_string($level)) {
-            $this->_level = strtolower($level);
-        } else if (is_int($level)) {
-            switch ($level) {
-                case 1:
-                    $this->_level = 'debug';
-                    break;
-
-                case 2:
-                    $this->_level = 'info';
-                    break;
-
-                case 4:
-                    $this->_level = 'notice';
-                    break;
-
-                case 8:
-                    $this->_level = 'warn';
-                    break;
-
-                case 16:
-                    $this->_level = 'error';
-                    break;
-
-                case 32:
-                    $this->_level = 'fatal';
-                    break;
-            }
+        $t = new LogLevel();
+        $r = new \ReflectionObject($t);
+        $aLevels = $r->getConstants();
+        $level = strtolower($level);
+        if (!in_array($level, $aLevels)) {
+            throw new InvalidArgumentException('setLevel($level) must be set with a \Psr\Log\LogLevel const value');
         }
+        $this->_level = $level;
     }
 
 
@@ -169,7 +149,7 @@ class ChannelObject extends Object implements ChannelInterface
      *
      * @param $name
      * @return ChannelObject
-     * @throws \Psr\Log\InvalidArgumentException
+     * @throws \Talkback\Exception\InvalidArgumentException
      */
     public function addField($name)
     {
