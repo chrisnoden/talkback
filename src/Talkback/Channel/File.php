@@ -10,7 +10,7 @@
 namespace Talkback\Channel;
 
 
-use Psr\Log\InvalidArgumentException;
+use Talkback\Exception\InvalidArgumentException;
 use Talkback\Exception\ChannelTargetException;
 
 /**
@@ -86,7 +86,7 @@ class File extends ChannelObject
     /**
      * @param $filename
      *
-     * @throws \Psr\Log\InvalidArgumentException
+     * @throws \Talkback\Exception\InvalidArgumentException
      */
     public function setFilename($filename)
     {

@@ -6,17 +6,15 @@
  * @copyright (c) 2009 to 2013 Chris Noden
  */
 
+namespace Talkback\Channel;
 
-namespace Talkback\Comms;
-
-
-use Psr\Log\InvalidArgumentException;
+use Talkback\Exception\InvalidArgumentException;
 
 /**
  * Provides a Syslog messaging object
  * So you can send messages to Syslog
  */
-class CommsSyslog extends ChannelObject
+class Syslog extends ChannelObject
 {
     /**
      * @var int
@@ -196,6 +194,7 @@ class CommsSyslog extends ChannelObject
 
             case 'alert':
             case 'warn':
+            case 'warning':
                 $syslog_level = LOG_WARNING;
                 break;
 

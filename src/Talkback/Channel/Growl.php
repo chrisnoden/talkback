@@ -9,7 +9,7 @@
 
 namespace Talkback\Channel;
 
-use Psr\Log\InvalidArgumentException;
+use Talkback\Exception\InvalidArgumentException;
 
 class Growl extends ChannelObject
 {

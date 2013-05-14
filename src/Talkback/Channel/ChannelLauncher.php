@@ -74,13 +74,13 @@ class ChannelLauncher
 
     /**
      * @static
-     * @return CommsSyslog
+     * @return Syslog
      * @throws SalException
      */
     public static function Syslog($name)
     {
         try {
-            $oComms = new CommsSyslog($name);
+            $oComms = new Syslog($name);
             return $oComms;
         } catch (\Exception $ex) {
             throw $ex;

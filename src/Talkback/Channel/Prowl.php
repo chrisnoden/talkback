@@ -6,11 +6,9 @@
  * @copyright (c) 2009 to 2013 Chris Noden
  */
 
-
 namespace Talkback\Channel;
 
-
-use Psr\Log\InvalidArgumentException;
+use Talkback\Exception\InvalidArgumentException;
 use Talkback\Exception\ChannelTargetException;
 
 /**

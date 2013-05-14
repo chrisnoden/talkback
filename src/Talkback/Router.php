@@ -11,7 +11,8 @@ namespace Talkback;
 use Psr\Log\AbstractLogger;
 use Psr\Log\LogLevel;
 use Psr\Log\LoggerInterface;
-use Talkback\Comms\ChannelObject;
+use Talkback\Channel\ChannelLauncher;
+use Talkback\Channel\ChannelObject;
 
 /**
  * The Talkback debugging/logging class
@@ -19,7 +20,7 @@ use Talkback\Comms\ChannelObject;
  * You add one or many ChannelLauncher objects and Handlers and each is sent any
  * log messages that are received by this class
  */
-final class Router extends AbstractLogger implements LoggerInterface
+final class Router extends AbstractLogger
 {
 
     /**
@@ -49,12 +50,13 @@ final class Router extends AbstractLogger implements LoggerInterface
 
 
     /**
-     * Add a SAL ChannelLauncher channel to our framework debugger
+     * Add a ChannelLauncher object to our framework debugger
+     *
      * @static
      * @param $levels int bitwise set of log levels (eg Psr\Log\LogLevel::INFO)
      * @param ChannelObject $oHandler
      */
-    public function addCommsChannel($levels, ChannelObject $oHandler)
+    public function addChannel($levels, ChannelObject $oHandler)
     {
         if ($levels & LogLevel::DEBUG) {
             $this->addHandler(LogLevel::DEBUG, $oHandler);
@@ -85,9 +87,9 @@ final class Router extends AbstractLogger implements LoggerInterface
 
     /**
      * @param $level
-     * @param ChannelObject $oHandler
+     * @param \Talkback\Channel\ChannelObject $oHandler
      */
-    private function addHandler($level, ChannelObject $oHandler)
+    private function addHandler($level,ChannelObject $oHandler)
     {
         if (!isset($this->_aChannels[$level])) {
             $this->_aChannels[$level] = array();
@@ -200,7 +202,7 @@ final class Router extends AbstractLogger implements LoggerInterface
                 case LogLevel::WARNING:
                 case LogLevel::ERROR:
                 case LogLevel::CRITICAL:
-                    $oHandler = Comms::Basic();
+                    $oHandler = ChannelLauncher::Basic();
                     $oHandler->setFieldValues($aContexts);
                     if ($this->_block) $oHandler->disable();
                     $oHandler->write($message);
@@ -212,35 +214,11 @@ final class Router extends AbstractLogger implements LoggerInterface
 
         // Iterate our loggers and send the message to them at the appropriate level
         /**
-         * @var $oLogger
+         * @var $oLogger \Psr\Log\AbstractLogger
          */
         foreach ($this->_aLoggers AS $oLogger)
         {
-            switch ($level) {
-
-                case LogLevel::INFO:
-                case LogLevel::NOTICE:
-                    $oLogger->info($message);
-                    break;
-
-                case LogLevel::WARNING:
-                    $oLogger->warn($message);
-                    break;
-
-                case LogLevel::ERROR:
-                    $oLogger->error($message);
-                    break;
-
-                case LogLevel::CRITICAL:
-                    $oLogger->fatal($message);
-                    break;
-
-                case LogLevel::DEBUG:
-                default:
-                    $oLogger->debug($message);
-                    break;
-
-            }
+            $oLogger->log($level, $message, $context);
         }
 
     }
