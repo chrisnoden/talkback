@@ -15,7 +15,10 @@
 
     <testsuites>
         <testsuite name="Talkback Test Suite">
-            <directory>./Tests/</directory>
+            <directory>./Tests/Talkback/</directory>
+        </testsuite>
+        <testsuite name="Net_Growl Test Suite">
+            <directory>./Tests/Net_Growl/Growl/</directory>
         </testsuite>
     </testsuites>
 

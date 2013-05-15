@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "eda56cf55ab5eec776dea40c1c6cc226",
+    "hash": "d393f2b3e73c2f16c8de9cd305eb6607",
     "packages": [
         {
             "name": "psr/log",
@@ -42,6 +42,48 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
+        },
+        {
+            "name": "xenji/prowlphp",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/xenji/ProwlPHP.git",
+                "reference": "1.0.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/xenji/ProwlPHP/zipball/1.0.3",
+                "reference": "1.0.3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Prowl": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache 2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Mario Mueller",
+                    "email": "mario@xenji.com",
+                    "homepage": "http://xenji.com"
+                }
+            ],
+            "description": "PHP library to access the webserives of Prowl (http://www.prowlapp.com/)",
+            "homepage": "https://github.com/xenji/ProwlPHP",
+            "keywords": [
+                "api",
+                "webservices"
+            ],
+            "time": "2012-03-13 07:22:21"
         }
     ],
     "packages-dev": [

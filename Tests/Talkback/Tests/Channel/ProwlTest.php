@@ -13,7 +13,7 @@ use Talkback\Channel\Prowl;
 class ProwlTest extends \PHPUnit_Framework_TestCase
 {
 
-    private $_apiKey = 'a702e646f9398c250cb073b8565b8506af959da8';
+    private $_apiKey = '4ee89bb6e7f63195de5a9d282789e24bb8a2fe75';
 
     /**
      * Basic Growl Object instantiation
@@ -72,11 +72,12 @@ class ProwlTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new Prowl('Synergy Test', $this->_apiKey);
         $obj->setEventName('Synergy Test Event');
-        $obj->write("Test Message");
+//        $obj->write("Test Message");
     }
 
+
     /**
-     * If Growl is running then this should not throw any Exceptions
+     * this should not throw any Exceptions
      */
     public function testMessageWriteEventException()
     {

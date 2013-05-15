@@ -15,10 +15,11 @@
     ],
     "autoload": {
         "psr-0": { "Talkback": "src/" },
-        "classmap": [ "src/Net_Growl", "src/Net_Growl/Growl", "src/Prowl" ]
+        "classmap": [ "src/Net_Growl", "src/Net_Growl/Growl" ]
     },
     "require": {
         "php": ">=5.3.3",
-        "psr/log": "1.0.0"
+        "psr/log": "1.0.0",
+        "xenji/prowlphp": "1.0.3"
     }
 }
