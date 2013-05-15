@@ -23,6 +23,14 @@ class Html extends ChannelObject
      * @var array cache of messages to output at the end of the HTML block
      */
     private $_aCachedMessages = array();
+    /**
+     * @var bool
+     */
+    private $_topBlockDone = false;
+    /**
+     * @var bool
+     */
+    private $_endBlockDone = false;
 
 
     public function __construct()
@@ -34,53 +42,56 @@ class Html extends ChannelObject
     public function __destruct()
     {
         if (count($this->_aCachedMessages) > 0) {
-            $this->dumpHtmlMessages();
+            $this->flush();
         }
         parent::__destruct();
     }
 
 
-    /**
-     * Outputs all the cached messages with HTML markup
-     */
-    private function dumpHtmlMessages()
+    private function outputTopBlock()
     {
-//        if (headers_sent()) {
+        if (!$this->_topBlockDone) {
+    //        if (headers_sent()) {
             echo "\n\n<hr/>\n\n";
-//        } else {
-//            if (Config::about('url')) header('X-Powered-By: '. (string)Config::about('url'));
-//        }
+    //        } else {
+    //            if (Config::about('url')) header('X-Powered-By: '. (string)Config::about('url'));
+    //        }
 
-        echo "<table style='font-size: small;' border='1' cellspacing='0' cellpadding='2'>";
+            echo "<table style='font-size: small;' border='1' cellspacing='0' cellpadding='2'>";
 
-        // Display our column headings
-        echo "<thead style='font-weight: bold;'>";
-        printf("<td valign=\"top\">time</td>");
-        foreach ($this->_aFields AS $fieldTitle=>$fieldDefaultValue)
-        {
-            if ($fieldTitle == 'time') continue;
-            printf("<td valign=\"top\">%s</td>", $fieldTitle);
-        }
-        printf("<td valign=\"top\">message</td>\n");
-
-        // Output our messages
-        foreach ($this->_aCachedMessages AS $aMsg)
-        {
-            printf("<tr><td valign=\"top\">%s</td>", date("H:i:s", strtotime($aMsg['time'])));
+            // Display our column headings
+            echo "<thead style='font-weight: bold;'>";
             foreach ($this->_aFields AS $fieldTitle=>$fieldDefaultValue)
             {
-                if ($fieldTitle == 'time') continue;
-                if (isset($aMsg[$fieldTitle])) {
-                    printf("<td valign=\"top\">%s</td>", $aMsg[$fieldTitle]);
-                } else {
-                    printf("<td valign=\"top\"></td>");
-                }
+                printf("<td valign=\"top\">%s</td>", $fieldTitle);
             }
-            printf("<td valign=\"top\"><pre>%s</pre></td>\n</tr>", $aMsg['message']);
+            printf("<td valign=\"top\">message</td>\n");
+
+            $this->_topBlockDone = true;
         }
+    }
 
-        echo "</table>\n\n\n";
+    private function outputEndBlock()
+    {
+        if (!$this->_endBlockDone) {
+            echo "</table>\n\n\n";
+            $this->_endBlockDone = true;
+        }
+    }
 
+
+    private function outputMessage($aMsg)
+    {
+        foreach ($this->_aFields AS $fieldTitle=>$fieldDefaultValue)
+        {
+            printf("<tr>");
+            if (isset($aMsg[$fieldTitle])) {
+                printf("<td valign=\"top\">%s</td>", $aMsg[$fieldTitle]);
+            } else {
+                printf("<td valign=\"top\"></td>");
+            }
+        }
+        printf("<td valign=\"top\"><pre>%s</pre></td></tr>\n", $aMsg['message']);
     }
 
 
@@ -96,9 +107,16 @@ class Html extends ChannelObject
             printf("%s\n", $msg);
         } else {
             $arr = array();
+            if ($this->_bAddTimestamp) {
+                $arr['timestamp'] = date('Y/m/d H:i:s');
+            }
             foreach ($this->_aMessageFields AS $pfxName=>$pfxValue)
             {
-                $arr[$pfxName] = $pfxValue;
+                if ($pfxName == 'timestamp') {
+                    continue;
+                } else {
+                    $arr[$pfxName] = $pfxValue;
+                }
             }
             $arr['message'] = $msg;
             $this->_aCachedMessages[] = $arr;
@@ -120,6 +138,23 @@ class Html extends ChannelObject
         $this->_fieldDelimiter = ' ';
         $this->_aFieldTitles = array('linenum' => 'line:');
         return $this;
+    }
+
+
+    public function flush()
+    {
+        $this->outputTopBlock();
+
+        // Output our messages
+        foreach ($this->_aCachedMessages AS $aMsg)
+        {
+            $this->outputMessage($aMsg);
+        }
+
+        // empty our cache
+        $this->_aCachedMessages = array();
+
+        $this->outputEndBlock();
     }
 
 }

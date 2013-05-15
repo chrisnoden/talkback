@@ -31,10 +31,6 @@ class File extends ChannelObject
      * @var resource
      */
     protected $_fh;
-    /**
-     * @var bool
-     */
-    protected $_bAddTimestamp = false;
 
 
     public function __construct()
@@ -122,25 +118,11 @@ class File extends ChannelObject
         parent::write($msg);
         if ($this->_enabled) {
             $this->openFH();
-            if ($this->_bAddTimestamp) {
-                $this->setFieldValue('timestamp', date('Y/m/d H:i:s'));
-            }
             $msg = $this->prepareMessage($msg);
             $msg .= "\n";
             fputs($this->_fh, $msg, strlen($msg));
         }
         parent::written();
-    }
-
-
-    /**
-     * @return File
-     */
-    public function addTimestamp()
-    {
-        $this->_bAddTimestamp = true;
-        $this->addField('timestamp');
-        return $this;
     }
 
 

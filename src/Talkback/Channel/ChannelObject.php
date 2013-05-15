@@ -50,6 +50,10 @@ class ChannelObject extends Object implements ChannelInterface
      * @example array('time' => 'time=');
      */
     protected $_aFieldTitles = array();
+    /**
+     * @var bool
+     */
+    protected $_bAddTimestamp = false;
 
 
     public function __construct()
@@ -90,6 +94,9 @@ class ChannelObject extends Object implements ChannelInterface
      */
     protected function prepareMessage($msg, $aSkipFields = array())
     {
+        if ($this->_bAddTimestamp) {
+            $this->setFieldValue('timestamp', date('Y/m/d H:i:s'));
+        }
         if (count($this->_aMessageFields) > 0) {
             $preMsg = '';
             foreach ($this->_aMessageFields AS $fieldName=>$fieldValue)
@@ -237,6 +244,17 @@ class ChannelObject extends Object implements ChannelInterface
         if (is_string($delimiter)) {
             $this->_fieldDelimiter = $delimiter;
         }
+        return $this;
+    }
+
+
+    /**
+     * @return File
+     */
+    public function addTimestamp()
+    {
+        $this->_bAddTimestamp = true;
+        $this->addField('timestamp');
         return $this;
     }
 
