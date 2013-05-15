@@ -67,12 +67,24 @@ class ChannelLauncherTest extends \PHPUnit_Framework_TestCase
      * Trying to instantiate a new File channel without a filename
      * or with an invalid filename should cause an Exception to be thrown
      */
-    public function testFileChannelException()
+    public function testFileChannelEmptyNameException()
     {
         $this->setExpectedException(
             'Talkback\Exception\InvalidArgumentException', 'filename must be an absolute filename in a writeable directory'
         );
         $obj = ChannelLauncher::File('');
+    }
+
+
+    /**
+     * Trying to instantiate a new File channel without a filename
+     * or with an invalid filename should cause an Exception to be thrown
+     */
+    public function testFileChannelInvalidNameException()
+    {
+        $this->setExpectedException(
+            'Talkback\Exception\InvalidArgumentException', 'filename must be an absolute filename in a writeable directory'
+        );
         $obj = ChannelLauncher::File($this->_invalidFileName);
     }
 

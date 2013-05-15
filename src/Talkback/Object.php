@@ -19,17 +19,6 @@ class Object {
 
     public function __destruct() {}
 
-    /**
-     * Object-to-string conversion.
-     * Each class can override this method as necessary.
-     *
-     * @return string name of this class
-     */
-    public function toString() {
-        $class = get_class($this);
-        return $class;
-    }
-
 
     /**
      * Object-to-string conversion.

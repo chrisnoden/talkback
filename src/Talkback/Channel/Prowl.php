@@ -40,7 +40,7 @@ class Prowl extends ChannelObject
     {
         parent::__construct();
 
-        if (is_string($appName) && mb_strlen($appName, 'utf-8') < 255) {
+        if (is_string($appName) && mb_strlen($appName, 'utf-8') > 0 && mb_strlen($appName, 'utf-8') < 255) {
             $this->_applicationName = trim($appName);
         } else {
             throw new InvalidArgumentException("Prowl appName must be a string, max 254 chars");

@@ -13,7 +13,9 @@ use Talkback\Channel\Console;
 class ConsoleTest extends \PHPUnit_Framework_TestCase
 {
 
-
+    /**
+     * Instantiate the Console Channel Object
+     */
     public function testConsoleObject()
     {
         $obj = new Console();
@@ -24,6 +26,10 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Talkback\Channel\Console', $obj->__toString());
     }
 
+
+    /**
+     * Does the Object output correctly to the console
+     */
     public function testConsoleOutput()
     {
         $obj = new Console();

@@ -52,15 +52,15 @@ class Growl extends ChannelObject
     {
         parent::__construct();
 
-        if (is_string($appName) && mb_strlen($appName, 'utf-8') < 50) {
+        if (is_string($appName) && mb_strlen($appName, 'utf-8') > 0 && mb_strlen($appName, 'utf-8') < 50) {
             $this->_applicationName = trim($appName);
         } else {
             throw new InvalidArgumentException("Growl appName must be a string, max 50 chars");
         }
 
         // Notification Type definitions
-        define('GROWL_NOTIFY_STATUS', 'GROWL_NOTIFY_STATUS');
-        define('GROWL_NOTIFY_PHPERROR', 'GROWL_NOTIFY_PHPERROR');
+        if (!defined('GROWL_NOTIFY_STATUS')) define('GROWL_NOTIFY_STATUS', 'GROWL_NOTIFY_STATUS');
+        if (!defined('GROWL_NOTIFY_PHPERROR')) define('GROWL_NOTIFY_PHPERROR', 'GROWL_NOTIFY_PHPERROR');
         $this->_growl_notifications = array(
             GROWL_NOTIFY_STATUS => array(
                 'display' => 'Status'
