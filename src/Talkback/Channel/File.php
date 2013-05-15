@@ -123,7 +123,7 @@ class File extends ChannelObject
         if ($this->_enabled) {
             $this->openFH();
             if ($this->_bAddTimestamp) {
-                $this->addField('timestamp', date('Y/m/d H:i:s'));
+                $this->setFieldValue('timestamp', date('Y/m/d H:i:s'));
             }
             $msg = $this->prepareMessage($msg);
             $msg .= "\n";
@@ -138,8 +138,8 @@ class File extends ChannelObject
      */
     public function addTimestamp()
     {
-        $this->addField('timestamp', date('Y/m/d H:i:s'));
         $this->_bAddTimestamp = true;
+        $this->addField('timestamp');
         return $this;
     }
 

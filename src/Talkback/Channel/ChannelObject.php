@@ -164,6 +164,20 @@ class ChannelObject extends Object implements ChannelInterface
 
 
     /**
+     * Set the value of the field for the next message/s
+     *
+     * @param $fieldName
+     * @param $value
+     */
+    public function setFieldValue($fieldName, $value)
+    {
+        if (isset($this->_aFields[$fieldName])) {
+            $this->_aMessageFields[$fieldName] = $value;
+        }
+    }
+
+
+    /**
      * Return the fields we currently have set
      * Which will be an array of keys with the value set to null
      *
