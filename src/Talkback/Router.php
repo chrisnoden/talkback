@@ -68,7 +68,8 @@ final class Router extends AbstractLogger
      *
      * @static
      * @param $aLevels array set of log levels (eg Psr\Log\LogLevel::INFO)
-     * @param ChannelObject $oHandler
+     * @param ChannelObject $oHandler from the ChannelLauncher
+     * @return Router
      */
     public function addChannel($aLevels, ChannelObject $oHandler)
     {
@@ -83,6 +84,8 @@ final class Router extends AbstractLogger
             }
             $this->addHandler($logLevel, $oHandler);
         }
+
+        return $this;
     }
 
 

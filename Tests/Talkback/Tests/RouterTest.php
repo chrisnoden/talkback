@@ -48,4 +48,16 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
     }
 
+
+    /**
+     * You should be able to chain the addHandler calls
+     */
+    public function testChainedHandlers()
+    {
+        $obj = new Router();
+        $obj
+            ->addChannel(array(LogLevel::EMERGENCY, LogLevel::ERROR), ChannelLauncher::Basic())
+            ->addChannel(LogLevel::INFO, ChannelLauncher::Growl('Test App'));
+    }
+
 }
