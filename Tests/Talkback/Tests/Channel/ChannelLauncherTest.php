@@ -8,7 +8,7 @@
 
 namespace Talkback\Tests\Talkback;
 
-use Talkback\Channel\ChannelLauncher;
+use Talkback\Channel\ChannelFactory;
 use Talkback\Channel\Html;
 use Talkback\Logger;
 use Talkback\Router;
@@ -51,7 +51,7 @@ class ChannelLauncherTest extends \PHPUnit_Framework_TestCase
      */
     public function testFileChannel()
     {
-        $obj = ChannelLauncher::File($this->_testFileName);
+        $obj = ChannelFactory::File($this->_testFileName);
         $this->assertInstanceOf('Talkback\Channel\File', $obj);
         $this->assertInstanceOf('Talkback\Channel\ChannelObject', $obj);
         $this->assertInstanceOf('Talkback\Object', $obj);
@@ -72,7 +72,7 @@ class ChannelLauncherTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Talkback\Exception\InvalidArgumentException', 'filename must be an absolute filename in a writeable directory'
         );
-        $obj = ChannelLauncher::File('');
+        $obj = ChannelFactory::File('');
     }
 
 
@@ -85,7 +85,7 @@ class ChannelLauncherTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Talkback\Exception\InvalidArgumentException', 'filename must be an absolute filename in a writeable directory'
         );
-        $obj = ChannelLauncher::File($this->_invalidFileName);
+        $obj = ChannelFactory::File($this->_invalidFileName);
     }
 
 
@@ -94,7 +94,7 @@ class ChannelLauncherTest extends \PHPUnit_Framework_TestCase
      */
     public function testGrowlChannel()
     {
-        $obj = ChannelLauncher::Growl('testapp');
+        $obj = ChannelFactory::Growl('testapp');
         $this->assertInstanceOf('Talkback\Channel\Growl', $obj);
         $this->assertInstanceOf('Talkback\Channel\ChannelObject', $obj);
         $this->assertInstanceOf('Talkback\Object', $obj);
@@ -127,7 +127,7 @@ class ChannelLauncherTest extends \PHPUnit_Framework_TestCase
      */
     public function testCommsProwl()
     {
-        $obj = ChannelLauncher::Prowl('My Test App', 'testapikey');
+        $obj = ChannelFactory::Prowl('My Test App', 'testapikey');
         $this->assertInstanceOf('Talkback\Channel\Prowl', $obj);
         $this->assertInstanceOf('Talkback\Channel\ChannelObject', $obj);
         $this->assertInstanceOf('Talkback\Object', $obj);

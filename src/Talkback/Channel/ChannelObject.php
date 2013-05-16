@@ -13,7 +13,7 @@ use Psr\Log\LogLevel;
 use Talkback\Object;
 
 /**
- * This is the root Object for all ChannelLauncher classes
+ * This is the root Object for all ChannelFactory classes
  * They should all inherit this class and build
  */
 class ChannelObject extends Object implements ChannelInterface

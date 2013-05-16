@@ -9,7 +9,7 @@
 namespace Talkback\Exception;
 
 /**
- * Core ChannelLauncher Exception - good fallback
+ * Core ChannelFactory Exception - good fallback
  */
 class ChannelException extends \Exception {}
 

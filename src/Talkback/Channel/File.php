@@ -14,11 +14,11 @@ use Talkback\Exception\InvalidArgumentException;
 use Talkback\Exception\ChannelTargetException;
 
 /**
- * Open a file so that we can write to it through our ChannelLauncher
+ * Open a file so that we can write to it through our ChannelFactory
  * methods. Typically a File object is used as the place for project logs
  *
  * example:
- * $filelog = ChannelLauncher::File('logs/hello.log');
+ * $filelog = ChannelFactory::File('logs/hello.log');
  * $filelog->error()->write("This is a log message set at error level");
  */
 class File extends ChannelObject

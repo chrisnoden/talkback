@@ -11,14 +11,14 @@ namespace Talkback;
 use Psr\Log\AbstractLogger;
 use Psr\Log\LogLevel;
 use Psr\Log\LoggerInterface;
-use Talkback\Channel\ChannelLauncher;
+use Talkback\Channel\ChannelFactory;
 use Talkback\Channel\ChannelObject;
 use Talkback\Exception\InvalidArgumentException;
 
 /**
  * The Talkback debugging/logging class
- * This works by adding a layer of detail and intelligence to the ChannelLauncher objects
- * You add one or many ChannelLauncher objects and Handlers and each is sent any
+ * This works by adding a layer of detail and intelligence to the ChannelFactory objects
+ * You add one or many ChannelFactory objects and Handlers and each is sent any
  * log messages that are received by this class
  */
 final class Router extends AbstractLogger
@@ -64,11 +64,11 @@ final class Router extends AbstractLogger
 
 
     /**
-     * Add a ChannelLauncher object to our framework debugger
+     * Add a ChannelFactory object to our framework debugger
      *
      * @static
      * @param $aLevels array set of log levels (eg Psr\Log\LogLevel::INFO)
-     * @param ChannelObject $oHandler from the ChannelLauncher
+     * @param ChannelObject $oHandler from the ChannelFactory
      * @return Router
      */
     public function addChannel($aLevels, ChannelObject $oHandler)
@@ -203,7 +203,7 @@ final class Router extends AbstractLogger
                 case LogLevel::WARNING:
                 case LogLevel::ERROR:
                 case LogLevel::CRITICAL:
-                    $oHandler = ChannelLauncher::Basic();
+                    $oHandler = ChannelFactory::Basic();
                     $oHandler->setFieldValues($aContexts);
                     if ($this->_block) $oHandler->disable();
                     $oHandler->write($message);

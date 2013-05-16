@@ -8,7 +8,7 @@
 
 namespace Talkback\Tests\Talkback\Channel;
 
-use Talkback\Channel\ChannelLauncher;
+use Talkback\Channel\ChannelFactory;
 use Talkback\Channel\Syslog;
 use Talkback\Exception\InvalidArgumentException;
 
@@ -23,7 +23,7 @@ class SyslogTest extends \PHPUnit_Framework_TestCase
      */
     public function testSyslog()
     {
-        $obj = ChannelLauncher::Syslog('MyTestLogger');
+        $obj = ChannelFactory::Syslog('MyTestLogger');
         $this->assertInstanceOf('Talkback\Channel\Syslog', $obj);
         $this->assertInstanceOf('Talkback\Channel\ChannelObject', $obj);
         $this->assertInstanceOf('Talkback\Object', $obj);

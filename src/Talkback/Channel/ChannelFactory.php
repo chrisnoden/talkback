@@ -8,7 +8,7 @@
 
 namespace Talkback\Channel;
 
-class ChannelLauncher
+class ChannelFactory
 {
 
     /**

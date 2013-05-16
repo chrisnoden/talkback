@@ -10,7 +10,7 @@ namespace Talkback\Tests\Talkback;
 
 
 use Psr\Log\LogLevel;
-use Talkback\Channel\ChannelLauncher;
+use Talkback\Channel\ChannelFactory;
 use Talkback\Logger;
 use Talkback\Router;
 
@@ -43,7 +43,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         foreach ($aLogLevels AS $LogLevel)
         {
             $aBuildLevels[] = $LogLevel;
-            $obj->addChannel($aBuildLevels, ChannelLauncher::Basic());
+            $obj->addChannel($aBuildLevels, ChannelFactory::Basic());
         }
     }
 
@@ -56,8 +56,8 @@ class RouterTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new Router();
         $obj
-            ->addChannel(array(LogLevel::EMERGENCY, LogLevel::ERROR), ChannelLauncher::Basic())
-            ->addChannel(LogLevel::INFO, ChannelLauncher::Growl('Test App'));
+            ->addChannel(array(LogLevel::EMERGENCY, LogLevel::ERROR), ChannelFactory::Basic())
+            ->addChannel(LogLevel::INFO, ChannelFactory::Growl('Test App'));
     }
 
 
@@ -65,8 +65,8 @@ class RouterTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new Router();
         $obj
-            ->addChannel(array(LogLevel::EMERGENCY, LogLevel::ERROR), ChannelLauncher::Basic())
-            ->addChannel(LogLevel::ERROR, ChannelLauncher::Basic());
+            ->addChannel(array(LogLevel::EMERGENCY, LogLevel::ERROR), ChannelFactory::Basic())
+            ->addChannel(LogLevel::ERROR, ChannelFactory::Basic());
 
         $this->expectOutputString("EMERGENCY log\n");
         $obj->log(LogLevel::EMERGENCY, 'EMERGENCY log');
