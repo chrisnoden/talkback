@@ -161,7 +161,7 @@ final class Router extends AbstractLogger
      * @param $level
      * @return void
      */
-    public function log($message, $level = LogLevel::INFO, array $context=array())
+    public function log($level = LogLevel::INFO, $message, array $context=array())
     {
         $oSource = self::buildSourceObject();
         $logFilename = $oSource->getFilename();

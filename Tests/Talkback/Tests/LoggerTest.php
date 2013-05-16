@@ -77,7 +77,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
     {
         $this->expectOutputString("hello, this is a test log\n");
         $obj = Logger::getLogger('test logger');
-        $obj->log("hello, this is a test log", LogLevel::ERROR);
+        $obj->log(LogLevel::ERROR, "hello, this is a test log");
     }
 
 

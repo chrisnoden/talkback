@@ -45,12 +45,12 @@ class RouterTest extends \PHPUnit_Framework_TestCase
             $aBuildLevels[] = $LogLevel;
             $obj->addChannel($aBuildLevels, ChannelLauncher::Basic());
         }
-
     }
 
 
     /**
      * You should be able to chain the addHandler calls
+     * @depends testAddingValidHandler
      */
     public function testChainedHandlers()
     {
@@ -58,6 +58,21 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         $obj
             ->addChannel(array(LogLevel::EMERGENCY, LogLevel::ERROR), ChannelLauncher::Basic())
             ->addChannel(LogLevel::INFO, ChannelLauncher::Growl('Test App'));
+    }
+
+
+    public function testChainedLogging()
+    {
+        $obj = new Router();
+        $obj
+            ->addChannel(array(LogLevel::EMERGENCY, LogLevel::ERROR), ChannelLauncher::Basic())
+            ->addChannel(LogLevel::ERROR, ChannelLauncher::Basic());
+
+        $this->expectOutputString("EMERGENCY log\n");
+        $obj->log(LogLevel::EMERGENCY, 'EMERGENCY log');
+
+        $this->expectOutputString("EMERGENCY log\nERROR log\nERROR log\n");
+        $obj->log(LogLevel::ERROR, 'ERROR log');
     }
 
 }
