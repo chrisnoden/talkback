@@ -70,8 +70,11 @@ final class Router extends AbstractLogger
      * @param $aLevels array set of log levels (eg Psr\Log\LogLevel::INFO)
      * @param ChannelObject $oHandler
      */
-    public function addChannel(array $aLevels, ChannelObject $oHandler)
+    public function addChannel($aLevels, ChannelObject $oHandler)
     {
+        if (!is_array($aLevels)) {
+            $aLevels = array($aLevels);
+        }
         foreach ($aLevels AS $logLevel)
         {
             $logLevel = strtolower($logLevel);
