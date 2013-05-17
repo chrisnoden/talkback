@@ -6,9 +6,7 @@
  * @copyright (c) 2009 to 2013 Chris Noden
  */
 
-
 namespace Talkback;
-
 
 /**
  * If you extend from this then you need a
