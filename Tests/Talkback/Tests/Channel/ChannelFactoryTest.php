@@ -6,7 +6,7 @@
  * @copyright (c) 2009 to 2013 Chris Noden
  */
 
-namespace Talkback\Tests\Talkback;
+namespace Talkback\Tests\Channel;
 
 use Talkback\Channel\ChannelFactory;
 use Talkback\Channel\Html;
