@@ -13,7 +13,7 @@ use Talkback\Channel\Html;
 use Talkback\Logger;
 use Talkback\Router;
 
-class ChannelLauncherTest extends \PHPUnit_Framework_TestCase
+class ChannelFactoryTest extends \PHPUnit_Framework_TestCase
 {
 
     private $_testFileName;
