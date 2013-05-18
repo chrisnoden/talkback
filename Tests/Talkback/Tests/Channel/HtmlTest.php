@@ -27,13 +27,20 @@ class HtmlTest extends \PHPUnit_Framework_TestCase
     }
 
 
+    /**
+     * HTML Output should be correctly formatted
+     */
     public function testWriteOutput()
     {
+        $expected = file_get_contents(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'HtmlTestOutput.html');
+        $expected = preg_replace('/datetime/', date('Y/m/d H:i:s'), $expected);
+
+        $this->expectOutputString($expected);
         $obj = new Html();
-        $this->expectOutputString("\n\n<hr/>\n\n<table style='font-size: small;' border='1' cellspacing='0' cellpadding='2'><thead style='font-weight: bold;'><td valign=\"top\">timestamp</td><td valign=\"top\">message</td>\n<tr><td valign=\"top\">".date("Y/m/d H:i:s")."</td><td valign=\"top\"><pre>test message</pre></td></tr>\n</table>\n\n\n");
         $obj
             ->addTimestamp()
             ->write("test message");
+        $obj->write("test message 2");
         $obj->flush();
     }
 

@@ -57,7 +57,7 @@ class Html extends ChannelObject
     //            if (Config::about('url')) header('X-Powered-By: '. (string)Config::about('url'));
     //        }
 
-            echo "<table style='font-size: small;' border='1' cellspacing='0' cellpadding='2'>";
+            echo "<table style='font-size: small;' border='1' cellspacing='0' cellpadding='2'>\n";
 
             // Display our column headings
             echo "<thead style='font-weight: bold;'>";
@@ -65,7 +65,7 @@ class Html extends ChannelObject
             {
                 printf("<td valign=\"top\">%s</td>", $fieldTitle);
             }
-            printf("<td valign=\"top\">message</td>\n");
+            printf("<td valign=\"top\">message</td></thead>\n");
 
             $this->_topBlockDone = true;
         }
@@ -82,9 +82,9 @@ class Html extends ChannelObject
 
     private function outputMessage($aMsg)
     {
+        printf("<tr>");
         foreach ($this->_aFields AS $fieldTitle=>$fieldDefaultValue)
         {
-            printf("<tr>");
             if (isset($aMsg[$fieldTitle])) {
                 printf("<td valign=\"top\">%s</td>", $aMsg[$fieldTitle]);
             } else {
