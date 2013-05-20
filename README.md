@@ -60,13 +60,32 @@ different names or just use one.
 You can attach multiple channels to a Log Level. The example has INFO level
 trapped by the File channel and by Growl.
 
+Adding another Logger
+---------------------
+Currently not fully tested...
+
+You should be able to attach any Psr-3 compliant logger (Monolog, 
+apache/log4php, etc) using:
+
+    $logger->addLogger($otherLoggerObject);
+
+From that point you just log to $logger and your logs will be trapped
+by $otherLoggerObject as well as any Talkback channels you've added.
+
 Logging
 ---------------
 As per the Psr-3 specification you can log in one of the following ways:
 
     <?php
 
-    $logger->debug("This is a debug level message");
+    $logger->debug("This is a DEBUG level message");
+    $logger->notice("This is a NOTICE level message");
+    $logger->info("This is an INFO level message");
+    $logger->warning("This is a WARNING level message");
+    $logger->alert("This is an ALERT level message");
+    $logger->error("This is an ERROR level message");
+    $logger->critical("This is a CRITICAL level message");
+    $logger->emergency("This is an EMERGENCY level message");
     $logger->log(\Psr\Log\LogLevel::ERROR, "This is an error level message");
 
 
