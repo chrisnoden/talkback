@@ -28,10 +28,6 @@ class Syslog extends ChannelObject
      * @var bool is our syslog handler open
      */
     private $_isOpen = false;
-    /**
-     * @var string name of our project
-     */
-    private $_name;
 
 
     public function __construct($name)

@@ -42,6 +42,7 @@ class SyslogTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Talkback\Exception\InvalidArgumentException', 'Syslog name must be a string, max 30 chars'
         );
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $obj = new Syslog('this name is too long to fit in the syslog object so should raise an exception');
     }
 

@@ -72,6 +72,7 @@ class ChannelFactoryTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Talkback\Exception\InvalidArgumentException', 'filename must be an absolute filename in a writeable directory'
         );
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $obj = ChannelFactory::File('');
     }
 
@@ -85,6 +86,7 @@ class ChannelFactoryTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Talkback\Exception\InvalidArgumentException', 'filename must be an absolute filename in a writeable directory'
         );
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $obj = ChannelFactory::File($this->_invalidFileName);
     }
 

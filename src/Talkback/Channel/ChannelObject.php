@@ -58,6 +58,10 @@ class ChannelObject extends Object implements ChannelInterface
      * @var int maximum length of our name
      */
     protected $_maxNameLength = 30;
+    /**
+     * @var string
+     */
+    protected $_name;
 
 
     public function __construct()

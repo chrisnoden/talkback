@@ -37,6 +37,7 @@ class ProwlTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Talkback\Exception\InvalidArgumentException', 'Prowl appName must be a string, max 254 chars'
         );
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $obj = new Prowl(1, $this->_apiKey);
     }
 
@@ -49,6 +50,7 @@ class ProwlTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Talkback\Exception\InvalidArgumentException', 'Prowl appName must be a string, max 254 chars'
         );
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $obj = new Prowl('', $this->_apiKey);
     }
 
@@ -61,6 +63,7 @@ class ProwlTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Talkback\Exception\InvalidArgumentException', 'Prowl appName must be a string, max 254 chars'
         );
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $obj = new Prowl('This name is aiming to be just a little bit longer than 254 characters in length, we already know it is a string but maybe if I am careful it can just be over the limit which is a very long limit indeed oh my goodness and still it goes on can you believe it', $this->_apiKey);
     }
 

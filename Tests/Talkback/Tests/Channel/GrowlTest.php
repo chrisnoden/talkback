@@ -35,6 +35,7 @@ class GrowlTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Talkback\Exception\InvalidArgumentException', 'Growl appName must be a string, max 50 chars'
         );
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $obj = new Growl(1);
     }
 
@@ -47,6 +48,7 @@ class GrowlTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Talkback\Exception\InvalidArgumentException', 'Growl appName must be a string, max 50 chars'
         );
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $obj = new Growl('');
     }
 
@@ -59,6 +61,7 @@ class GrowlTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Talkback\Exception\InvalidArgumentException', 'Growl appName must be a string, max 50 chars'
         );
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $obj = new Growl('This name is a little greater than 50 characters in length');
     }
 
