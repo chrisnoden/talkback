@@ -70,6 +70,7 @@ final class Router extends AbstractLogger
      * @param $aLevels array set of log levels (eg Psr\Log\LogLevel::INFO)
      * @param ChannelObject $oHandler from the ChannelFactory
      * @return Router
+     * @throws \Talkback\Exception\InvalidArgumentException
      */
     public function addChannel($aLevels, ChannelObject $oHandler)
     {
@@ -109,7 +110,7 @@ final class Router extends AbstractLogger
      */
     public function addLogger($logger)
     {
-        if ($logger instanceof \Psr\Log\LoggerInterface) {
+        if ($logger instanceof LoggerInterface) {
             $this->_aLoggers[] = $logger;
         } else
 
@@ -156,10 +157,10 @@ final class Router extends AbstractLogger
 
 
     /**
-     * @static
-     * @param $message
-     * @param $level
-     * @return void
+     * @param mixed|string $level
+     * @param string       $message
+     * @param array        $context
+     * @return null|void
      */
     public function log($level = LogLevel::INFO, $message, array $context=array())
     {
@@ -254,6 +255,7 @@ final class Router extends AbstractLogger
     public function getTag()
     {
         if (isset($this->_aFields['tag'])) return $this->_aFields['tag'];
+        return null;
     }
 
 

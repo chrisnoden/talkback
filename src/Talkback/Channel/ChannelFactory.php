@@ -8,6 +8,9 @@
 
 namespace Talkback\Channel;
 
+use Talkback\Exception\InvalidArgumentException;
+
+/** @noinspection PhpDocSignatureInspection */
 class ChannelFactory
 {
 
@@ -75,14 +78,14 @@ class ChannelFactory
     /**
      * @static
      * @return Syslog
-     * @throws SalException
+     * @throws \Talkback\Exception\InvalidArgumentException
      */
     public static function Syslog($name)
     {
         try {
             $oComms = new Syslog($name);
             return $oComms;
-        } catch (\Exception $ex) {
+        } catch (InvalidArgumentException $ex) {
             throw $ex;
         }
     }
@@ -90,8 +93,8 @@ class ChannelFactory
 
     /**
      * @static
-     * @param $appName
-     * @param $apiKey You can add up to 5 Prowl Api Keys - but need at least 1
+     * @param $appName string
+     * @param $apiKey string You can add up to 5 Prowl Api Keys - but need at least 1
      * @return Prowl
      * @throws \Exception
      */

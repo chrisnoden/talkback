@@ -568,7 +568,7 @@ class Net_Growl_Gntp extends Net_Growl
                  */
                 $length = $this->strByteLen($plainText);
                 $pad = $block_size - ($length % $block_size);
-                $plainText = str_pad($plainText, $length + $pad, chr($pad));
+                $plainText = str_pad($plainText, intval($length + $pad), chr($pad));
             }
             $cipherText = mcrypt_generic($td, $plainText);
             mcrypt_generic_deinit($td);

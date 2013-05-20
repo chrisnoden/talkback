@@ -42,7 +42,7 @@
  * @link     http://pear.php.net/package/Net_Growl
  * @since    File available since Release 0.9.0
  */
- 
+
 /**
  * Application object for {@link Net_Growl}
  *
@@ -70,31 +70,38 @@
  * @link     http://pear.php.net/package/Net_Growl
  * @since    Class available since Release 0.9.0
  */
+/** @noinspection PhpDocSignatureInspection */
 class Net_Growl_Application
 {
+
     /**
      * Name of application to be registered by Growl
+     *
      * @var string
      */
     private $_growlAppName;
 
     /**
      * Password for notifications
+     *
      * @var string
      */
     private $_growlAppPassword = '';
 
     /**
      * Icon of application to be registered by Growl
+     *
      * @var Net_Growl_Icon
      */
     private $_growlAppIcon = '';
 
     /**
      * Array of notifications
+     *
      * @var array
      */
     private $_growlNotifications = array();
+
 
     /**
      * Constructor
@@ -111,8 +118,9 @@ class Net_Growl_Application
      * @see    setGrowlName(), setGrowlPassword(), setGrowlIcon()
      */
     public function __construct($appName = null, $notifications = null,
-        $password = null, $appIcon = null
-    ) {
+                                $password = null, $appIcon = null
+    )
+    {
         if (!empty($appName)) {
             $this->setGrowlName($appName);
         }
@@ -126,6 +134,7 @@ class Net_Growl_Application
             $this->addGrowlNotifications($notifications);
         }
     }
+
 
     /**
      * Adds notifications supported by this application
@@ -153,7 +162,7 @@ class Net_Growl_Application
         $default = array('enabled' => true);
         foreach ($notifications as $name => $options) {
             if (is_int($name)) {
-                $name = $options;
+                $name    = $options;
                 $options = $default;
             } elseif (is_array($options)) {
                 $options = array_merge($default, $options);
@@ -161,6 +170,7 @@ class Net_Growl_Application
             $this->_growlNotifications[$name] = $options;
         }
     }
+
 
     /**
      * Returns the notifications accepted by Growl for this application
@@ -182,6 +192,7 @@ class Net_Growl_Application
         return $this->_growlNotifications;
     }
 
+
     /**
      * Sets the application name for registration in Growl
      *
@@ -199,6 +210,7 @@ class Net_Growl_Application
         $this->_growlAppName = $appName;
     }
 
+
     /**
      * Returns the application name for registration in Growl
      *
@@ -209,6 +221,7 @@ class Net_Growl_Application
     {
         return $this->_growlAppName;
     }
+
 
     /**
      * Sets the password to be used by Growl to accept notification packets
@@ -227,6 +240,7 @@ class Net_Growl_Application
         $this->_growlAppPassword = $password;
     }
 
+
     /**
      * Returns the password to be used by Growl to accept notification packets
      *
@@ -237,6 +251,7 @@ class Net_Growl_Application
     {
         return $this->_growlAppPassword;
     }
+
 
     /**
      * Sets the application icon for registration in Growl
@@ -259,6 +274,7 @@ class Net_Growl_Application
         }
         $this->_growlAppIcon = $appIcon;
     }
+
 
     /**
      * Returns the application icon for registration in Growl

@@ -64,4 +64,12 @@ interface ChannelInterface
      */
     public function setFieldValues(array $aContexts);
 
+
+    /**
+     * Set the name of our Channel
+     *
+     * @param $name
+     * @return mixed
+     */
+    public function setName($name);
 }

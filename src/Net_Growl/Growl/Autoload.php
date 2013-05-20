@@ -72,6 +72,7 @@ function NetGrowl_autoload($className)
     }
 
     if (isset($classes[$className])) {
+        /** @noinspection PhpIncludeInspection */
         include $path . $classes[$className];
     }
 }

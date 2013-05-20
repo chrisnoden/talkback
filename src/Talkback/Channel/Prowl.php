@@ -8,6 +8,8 @@
 
 namespace Talkback\Channel;
 
+use Prowl\Connector;
+use Prowl\Message;
 use Talkback\Exception\InvalidArgumentException;
 use Talkback\Exception\ChannelTargetException;
 
@@ -69,7 +71,8 @@ class Prowl extends ChannelObject
     /**
      * Send the message through the Prowl API
      * @param $message
-     * @throws ChannelTargetException
+     * @throws \Talkback\Exception\ChannelTargetException
+     * @throws \Talkback\Exception\InvalidArgumentException
      */
     private function sendProwlMessage($message)
     {
@@ -83,9 +86,9 @@ class Prowl extends ChannelObject
         }
 
         // Use \Prowl\SecureConnector to make cUrl use SSL
-        $oProwl = new \Prowl\Connector();
+        $oProwl = new Connector();
 
-        $oMsg = new \Prowl\Message();
+        $oMsg = new Message();
 
         try {
 
@@ -135,7 +138,7 @@ class Prowl extends ChannelObject
 
     /**
      * @param $eventName string
-     * @throws \Psr\Log\InvalidArgumentException
+     * @throws \Talkback\Exception\InvalidArgumentException
      */
     public function setEventName($eventName)
     {

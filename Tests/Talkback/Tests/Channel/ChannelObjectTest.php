@@ -10,6 +10,7 @@ namespace Talkback\Tests\Channel;
 
 use Psr\Log\LogLevel;
 use Talkback\Channel\ChannelObject;
+use Talkback\Exception\InvalidArgumentException;
 
 class ChannelObjectTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,7 +37,7 @@ class ChannelObjectTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Talkback\Exception\InvalidArgumentException', 'setLevel($level) must be set with a \Psr\Log\LogLevel const value'
         );
-        $obj->setLevel(E_USER_ERROR);
+        $obj->setLevel(LogLevel::ERROR);
     }
 
 
@@ -62,6 +63,7 @@ class ChannelObjectTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Talkback\Exception\InvalidArgumentException', 'setLevel($level) must be set with a \Psr\Log\LogLevel const value'
         );
+        /** @noinspection PhpParamsInspection */
         $obj->setLevel(1);
     }
 
@@ -75,6 +77,7 @@ class ChannelObjectTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Talkback\Exception\InvalidArgumentException', 'setLevel($level) must be set with a \Psr\Log\LogLevel const value'
         );
+        /** @noinspection PhpParamsInspection */
         $obj->setLevel("string");
     }
 

@@ -54,6 +54,10 @@ class ChannelObject extends Object implements ChannelInterface
      * @var bool
      */
     protected $_bAddTimestamp = false;
+    /**
+     * @var int maximum length of our name
+     */
+    protected $_maxNameLength = 30;
 
 
     public function __construct()
@@ -119,7 +123,8 @@ class ChannelObject extends Object implements ChannelInterface
     /**
      * mainly used for logging/debugging - sets the log level
      *
-     * @param $level \Psr\Log\LogLevel use one of \Psr\Log\LogLevel constants
+     * @param $level string one of \Psr\Log\LogLevel constants
+     * @throws \Talkback\Exception\InvalidArgumentException
      */
     public function setLevel($level)
     {
@@ -258,5 +263,23 @@ class ChannelObject extends Object implements ChannelInterface
         return $this;
     }
 
+
+    /**
+     * @param $name
+     * @return $this
+     * @throws \Talkback\Exception\InvalidArgumentException
+     */
+    public function setName($name)
+    {
+        if (is_string($name) && mb_strlen($name, 'utf-8') <= $this->_maxNameLength) {
+            $name = ucwords($name);
+            /** @noinspection PhpUndefinedFieldInspection */
+            $this->_name = preg_replace('/[^0-9a-zA-Z]/', '', $name);
+        } else {
+            throw new InvalidArgumentException("Syslog name must be a string, max {$this->_maxNameLength} chars");
+        }
+
+        return $this;
+    }
 
 }

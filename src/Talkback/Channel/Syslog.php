@@ -53,6 +53,7 @@ class Syslog extends ChannelObject
 
     /**
      * @param $facility
+     * @throws \Talkback\Exception\InvalidArgumentException
      */
     public function setFacility($facility)
     {
@@ -88,6 +89,7 @@ class Syslog extends ChannelObject
 
     /**
      * @param $option
+     * @throws \Talkback\Exception\InvalidArgumentException
      */
     public function setOption($option)
     {
@@ -103,21 +105,6 @@ class Syslog extends ChannelObject
             $this->resetLog();
         } else {
             throw new InvalidArgumentException("option must be a valid constant LOG_CONS, LOG_NDELAY, LOG_ODELAY, LOG_PERROR or LOG_PID (default)");
-        }
-    }
-
-
-    /**
-     * @param $name
-     * @throws \Talkback\Exception\InvalidArgumentException
-     */
-    public function setName($name)
-    {
-        if (is_string($name) && mb_strlen($name, 'utf-8') < 30) {
-            $name = ucwords($name);
-            $this->_name = preg_replace('/[^0-9a-zA-Z]/', '', $name);
-        } else {
-            throw new InvalidArgumentException("Syslog name must be a string, max 30 chars");
         }
     }
 

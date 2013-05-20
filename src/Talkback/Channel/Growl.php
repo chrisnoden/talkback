@@ -46,7 +46,7 @@ class Growl extends ChannelObject
 
     /**
      * @param $appName
-     * @throws \Psr\Log\InvalidArgumentException
+     * @throws \Talkback\Exception\InvalidArgumentException
      */
     public function __construct($appName)
     {
@@ -90,6 +90,7 @@ class Growl extends ChannelObject
 
     /**
      * @param $timeout int seconds
+     * @throws \Talkback\Exception\InvalidArgumentException
      */
     public function setTimeout($timeout)
     {

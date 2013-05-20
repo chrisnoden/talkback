@@ -63,9 +63,9 @@ class Html extends ChannelObject
             echo "<thead style='font-weight: bold;'>";
             foreach ($this->_aFields AS $fieldTitle=>$fieldDefaultValue)
             {
-                printf("<td valign=\"top\">%s</td>", $fieldTitle);
+                printf("<th>%s</th>", $fieldTitle);
             }
-            printf("<td valign=\"top\">message</td></thead>\n");
+            printf("<th>message</th></thead>\n");
 
             $this->_topBlockDone = true;
         }

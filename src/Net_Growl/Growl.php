@@ -475,6 +475,7 @@ class Net_Growl
         stream_set_timeout($sh, $this->options['timeout'], 0);
 
         $this->debug($data);
+        /** @noinspection PhpParamsInspection */
         $res = fwrite($sh, $data, $this->strByteLen($data));
 
         if ($res === false) {
@@ -716,7 +717,6 @@ class Net_Growl
      * Get string byte length
      *
      * @param string $string The string being measured for byte length.
-     *
      * @return The byte length of the $string.
      */
     protected function strByteLen($string)
