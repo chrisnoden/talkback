@@ -49,22 +49,35 @@ EMERGENCY, INFO, NOTICE or WARNING levels to the file 'tmp/mylog.log'.
 It will also output any CRITICAL errors to your console or to the end of your
 HTML output (it automatically chooses console or HTML, but you can override).
 
+It will also output any INFO items to Growl (for Mac) - which automatically
+degrades when not running on a dev Mac.
+
 In the example the name of the logger is 'main logger' and it becomes static
 so you can use Logger::getLogger('main logger') in any other block of code in
 your PHP to attach to the same logger. You can create several loggers with
 different names or just use one.
 
-It will also output any INFO items to Growl (for Mac) - which automatically
-degrades when not running on a dev Mac.
+You can attach multiple channels to a Log Level. The example has INFO level
+trapped by the File channel and by Growl.
+
+Logging
+---------------
+As per the Psr-3 specification you can log in one of the following ways:
+
+    <?php
+
+    $logger->debug("This is a debug level message");
+    $logger->log(\Psr\Log\LogLevel::ERROR, "This is an error level message");
+
 
 The Channels currently include:
 
-    Console
-    HTML
-    Syslog
-    File
-    Growl
-    Prowl
++ Console
++ HTML
++ Syslog
++ File
++ Growl
++ Prowl
 
 Prowl is very handy to get iOS notifications of critical alerts for example!
 
