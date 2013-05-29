@@ -9,7 +9,7 @@
 namespace Talkback\Tests\Talkback;
 
 
-use Psr\Log\LogLevel;
+use Talkback\Log\LogLevel;
 use Talkback\Channel\ChannelFactory;
 use Talkback\Logger;
 use Talkback\Router;
@@ -31,7 +31,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
     public function testAddingValidHandler()
     {
         /**
-         * @var $t \Psr\Log\LogLevel
+         * @var $t \Talkback\Log\LogLevel
          */
         $t = new LogLevel();
         $r = new \ReflectionObject($t);

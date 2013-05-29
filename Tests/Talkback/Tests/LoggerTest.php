@@ -8,7 +8,7 @@
 
 namespace Talkback\Tests\Talkback;
 
-use Psr\Log\LogLevel;
+use Talkback\Log\LogLevel;
 use Talkback\Logger;
 
 class LoggerTest extends \PHPUnit_Framework_TestCase
@@ -23,6 +23,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('Talkback\Singleton', Logger::getInstance());
         $obj = Logger::getLogger('test logger');
+        $this->assertInstanceOf('Talkback\Log\LogAbstract', $obj);
         $this->assertInstanceOf('\Psr\Log\AbstractLogger', $obj);
     }
 
