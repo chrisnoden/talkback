@@ -8,9 +8,9 @@
 
 namespace Talkback;
 
-use Psr\Log\AbstractLogger;
-use Psr\Log\LogLevel;
-use Psr\Log\LoggerInterface;
+use Talkback\Log\LogAbstract;
+use Talkback\Log\LogLevel;
+use Talkback\Log\LogInterface;
 use Talkback\Channel\ChannelFactory;
 use Talkback\Channel\ChannelObject;
 use Talkback\Exception\InvalidArgumentException;
@@ -21,7 +21,7 @@ use Talkback\Exception\InvalidArgumentException;
  * You add one or many ChannelFactory objects and Handlers and each is sent any
  * log messages that are received by this class
  */
-final class Router extends AbstractLogger
+final class Router extends LogAbstract
 {
 
     /**
@@ -55,7 +55,7 @@ final class Router extends AbstractLogger
         // populate our array of valid LogLevels using Reflection
 
         /**
-         * @var $t \Psr\Log\LogLevel
+         * @var $t LogLevel
          */
         $t = new LogLevel();
         $r = new \ReflectionObject($t);
@@ -67,7 +67,7 @@ final class Router extends AbstractLogger
      * Add a ChannelFactory object to our framework debugger
      *
      * @static
-     * @param $aLevels array set of log levels (eg Psr\Log\LogLevel::INFO)
+     * @param $aLevels array set of log levels (eg Talkback\Log\LogLevel::INFO)
      * @param ChannelObject $oHandler from the ChannelFactory
      * @return Router
      * @throws \Talkback\Exception\InvalidArgumentException
@@ -110,7 +110,7 @@ final class Router extends AbstractLogger
      */
     public function addLogger($logger)
     {
-        if ($logger instanceof LoggerInterface) {
+        if ($logger instanceof LogInterface) {
             $this->_aLoggers[] = $logger;
         } else
 
@@ -216,7 +216,7 @@ final class Router extends AbstractLogger
 
         // Iterate our loggers and send the message to them at the appropriate level
         /**
-         * @var $oLogger \Psr\Log\AbstractLogger
+         * @var $oLogger \Talkback\Log\LogAbstract
          */
         foreach ($this->_aLoggers AS $oLogger)
         {
