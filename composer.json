@@ -19,7 +19,12 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "psr/log": "1.0.0",
+        "psr/log": "1.0.0"
+    },
+    "require-dev": {
+        "xenji/prowlphp": "1.0.3"
+    },
+    "suggest": {
         "xenji/prowlphp": "1.0.3"
     }
 }

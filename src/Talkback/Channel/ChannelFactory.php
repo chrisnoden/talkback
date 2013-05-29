@@ -8,6 +8,7 @@
 
 namespace Talkback\Channel;
 
+use Talkback\Exception\ChannelException;
 use Talkback\Exception\InvalidArgumentException;
 
 /** @noinspection PhpDocSignatureInspection */
@@ -100,6 +101,9 @@ class ChannelFactory
      */
     public static function Prowl($appName, $apiKey)
     {
+        if (!class_exists('Prowl\Message')) {
+            throw new ChannelException('Prowl library not installed');
+        }
         try {
             $oComms = new Prowl($appName, $apiKey);
             return $oComms;

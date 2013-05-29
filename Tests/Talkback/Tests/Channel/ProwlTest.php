@@ -15,7 +15,19 @@ class ProwlTest extends \PHPUnit_Framework_TestCase
 
     private $_apiKey = '4ee89bb6e7f63195de5a9d282789e24bb8a2fe75';
 
+
     /**
+     * Basic test that our Prowl library is installed
+     */
+    public function testProwlLibrary()
+    {
+        if (!class_exists('Prowl\Message')) {
+            $this->fail("Prowl library not installed");
+        }
+    }
+
+    /**
+     * @depends testProwlLibrary
      * Basic Growl Object instantiation
      */
     public function testProwlObject()
@@ -30,6 +42,7 @@ class ProwlTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+     * @depends testProwlLibrary
      * App Name must be a string type
      */
     public function testAppNameWrongTypeException()
@@ -43,6 +56,7 @@ class ProwlTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+     * @depends testProwlLibrary
      * App Name must be a string
      */
     public function testAppNameEmptyStringException()
@@ -56,6 +70,7 @@ class ProwlTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+     * @depends testProwlLibrary
      * App Name is limited to 50 chars
      */
     public function testAppNameTooLongException()
@@ -69,6 +84,7 @@ class ProwlTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+     * @depends testProwlLibrary
      * If Growl is running then this should not throw any Exceptions
      */
     public function testMessageWrite()
@@ -80,6 +96,7 @@ class ProwlTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+     * @depends testProwlLibrary
      * this should not throw any Exceptions
      */
     public function testMessageWriteEventException()
