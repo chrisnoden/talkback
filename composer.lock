@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2f825607ef6b5f72b57d9e7425d10e70",
+    "hash": "274713b5f3d60c0993cd84756f05ac95",
     "packages": [
         {
             "name": "psr/log",
@@ -44,99 +44,11 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "packages-dev": [
-        {
-            "name": "wp-cli/php-cli-tools",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/wp-cli/php-cli-tools.git",
-                "reference": "c14d0bfad917bef1e05bcc2333ef6943c43b9061"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/php-cli-tools/zipball/c14d0bfad917bef1e05bcc2333ef6943c43b9061",
-                "reference": "c14d0bfad917bef1e05bcc2333ef6943c43b9061",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">= 5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "cli": "lib/"
-                },
-                "files": [
-                    "lib/cli/cli.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "James Logsdon",
-                    "email": "jlogsdon@php.net",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Console utilities for PHP",
-            "homepage": "http://github.com/jlogsdon/php-cli-tools",
-            "keywords": [
-                "cli",
-                "console"
-            ],
-            "time": "2013-06-23 17:55:08"
-        },
-        {
-            "name": "xenji/prowlphp",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/xenji/ProwlPHP.git",
-                "reference": "1.0.3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/xenji/ProwlPHP/zipball/1.0.3",
-                "reference": "1.0.3",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Prowl": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache 2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Mario Mueller",
-                    "email": "mario@xenji.com",
-                    "homepage": "http://xenji.com"
-                }
-            ],
-            "description": "PHP library to access the webserives of Prowl (http://www.prowlapp.com/)",
-            "homepage": "https://github.com/xenji/ProwlPHP",
-            "keywords": [
-                "api",
-                "webservices"
-            ],
-            "time": "2012-03-13 07:22:21"
-        }
-    ],
+    "packages-dev": null,
     "aliases": [
 
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": {
         "wp-cli/php-cli-tools": 20
     },
