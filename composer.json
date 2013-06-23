@@ -2,11 +2,11 @@
     "name": "chrisnoden/talkback",
     "description": "Logging and messaging library that builds upon Psr-3 with Growl, Prowl, email and other modules",
     "keywords": ["psr-3", "growl", "prowl", "logging"],
-    "license": "MIT",
+    "license": "Apache-2.0",
     "version": "0.1.0-dev",
     "homepage": "https://github.com/chrisnoden/talkback",
     "type": "library",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Chris Noden",
@@ -18,13 +18,13 @@
         "classmap": [ "src/Net_Growl", "src/Net_Growl/Growl" ]
     },
     "require": {
-        "php": ">=5.3.3",
-        "psr/log": "1.0.0"
+        "php": ">=5.3.21",
+        "psr/log": "1.*"
     },
     "require-dev": {
-        "xenji/prowlphp": "1.0.3"
+        "xenji/prowlphp": "1.*"
     },
     "suggest": {
-        "xenji/prowlphp": "1.0.3"
+        "xenji/prowlphp": "1.0.*"
     }
 }
