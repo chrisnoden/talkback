@@ -31,8 +31,15 @@ use Psr\Log\LogLevel;
 use Talkback\Object;
 
 /**
+ * Class ChannelObject
  * This is the root Object for all ChannelFactory classes
  * They should all inherit this class and build
+ *
+ * @category Talkback\Channel
+ * @package  talkback
+ * @author   Chris Noden <chris.noden@gmail.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+ * @link     https://github.com/chrisnoden/synergy
  */
 class ChannelObject extends Object implements ChannelInterface
 {
@@ -109,6 +116,7 @@ class ChannelObject extends Object implements ChannelInterface
     protected function written()
     {
         $this->_aMessageFields = $this->_aFields;
+        $this->_level = null;
     }
 
 

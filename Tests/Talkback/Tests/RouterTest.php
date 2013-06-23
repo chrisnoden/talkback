@@ -27,6 +27,7 @@
 namespace Talkback\Tests\Talkback;
 
 
+use Talkback\Channel\Console;
 use Talkback\Log\LogLevel;
 use Talkback\Channel\ChannelFactory;
 use Talkback\Logger;
@@ -81,15 +82,19 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
     public function testChainedLogging()
     {
+        $console1 = new Console();
+        $console1->setUseStream(false);
+        $console2 = new Console();
+        $console2->setUseStream(false);
         $obj = new Router();
         $obj
-            ->addChannel(array(LogLevel::EMERGENCY, LogLevel::ERROR), ChannelFactory::Basic())
-            ->addChannel(LogLevel::ERROR, ChannelFactory::Basic());
+            ->addChannel(array(LogLevel::EMERGENCY, LogLevel::ERROR), $console1)
+            ->addChannel(LogLevel::ERROR, $console2);
 
-        $this->expectOutputString("EMERGENCY log\n");
+        $this->expectOutputString("emergency:EMERGENCY log\n");
         $obj->log(LogLevel::EMERGENCY, 'EMERGENCY log');
 
-        $this->expectOutputString("EMERGENCY log\nERROR log\nERROR log\n");
+        $this->expectOutputString("emergency:EMERGENCY log\nerror:ERROR log\nerror:ERROR log\n");
         $obj->log(LogLevel::ERROR, 'ERROR log');
     }
 

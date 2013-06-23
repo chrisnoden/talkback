@@ -24,23 +24,29 @@
  * @link      https://github.com/chrisnoden
  */
 
-
 namespace Talkback\Channel;
-
 
 use Talkback\Exception\InvalidArgumentException;
 use Talkback\Exception\ChannelTargetException;
 
 /**
+ * Class File
  * Open a file so that we can write to it through our ChannelFactory
  * methods. Typically a File object is used as the place for project logs
  *
  * example:
  * $filelog = ChannelFactory::File('logs/hello.log');
  * $filelog->error()->write("This is a log message set at error level");
+ *
+ * @category Channel\File
+ * @package  talkback
+ * @author   Chris Noden <chris.noden@gmail.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+ * @link     https://github.com/chrisnoden/synergy
  */
 class File extends ChannelObject
 {
+
     /**
      * @var string
      */
@@ -66,6 +72,7 @@ class File extends ChannelObject
 
     /**
      * Opens the file handler for append
+     *
      * @throws ChannelTargetException
      */
     protected function openFH()
@@ -117,7 +124,7 @@ class File extends ChannelObject
             // clean the filename
             $filename = $parts['dirname'] . DIRECTORY_SEPARATOR . preg_replace("/[^A-Za-z0-9+]/", '_', $parts['filename']);
             if (isset($parts['extension']) && strlen($parts['extension']) > 0) {
-                $filename .= '.'.$parts['extension'];
+                $filename .= '.' . $parts['extension'];
             }
 
             $this->_filename = $filename;

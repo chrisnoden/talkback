@@ -34,10 +34,17 @@ use Talkback\Channel\ChannelObject;
 use Talkback\Exception\InvalidArgumentException;
 
 /**
+ * Class Router
  * The Talkback debugging/logging class
  * This works by adding a layer of detail and intelligence to the ChannelFactory objects
  * You add one or many ChannelFactory objects and Handlers and each is sent any
  * log messages that are received by this class
+ *
+ * @category Talkback
+ * @package  talkback
+ * @author   Chris Noden <chris.noden@gmail.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+ * @link     https://github.com/chrisnoden/synergy
  */
 final class Router extends LogAbstract
 {
@@ -84,9 +91,9 @@ final class Router extends LogAbstract
     /**
      * Add a ChannelFactory object to our framework debugger
      *
-     * @static
      * @param $aLevels array set of log levels (eg Talkback\Log\LogLevel::INFO)
      * @param ChannelObject $oHandler from the ChannelFactory
+     *
      * @return Router
      * @throws \Talkback\Exception\InvalidArgumentException
      */
@@ -109,10 +116,14 @@ final class Router extends LogAbstract
 
 
     /**
+     * Add a new log event handler channel
+     *
      * @param $level
      * @param \Talkback\Channel\ChannelObject $oHandler
+     *
+     * @return void
      */
-    private function addHandler($level,ChannelObject $oHandler)
+    private function addHandler($level, ChannelObject $oHandler)
     {
         if (!isset($this->_aChannels[$level])) {
             $this->_aChannels[$level] = array();
@@ -125,23 +136,25 @@ final class Router extends LogAbstract
      * Add a new logger to our debugger
      *
      * @param Object $logger
+     *
+     * @return void
      */
     public function addLogger($logger)
     {
         if ($logger instanceof LogInterface) {
             $this->_aLoggers[] = $logger;
-        } else
-
+        } else {
             // else, is it a Logger object (hopefully from log4php)
             if (is_a($logger, '\Logger')) {
                 $this->_aLoggers[] = $logger;
             }
-
+        }
     }
 
 
     /**
-     * @static
+     * Get information about the source that generated the message event
+     *
      * @return SourceFile
      */
     private function buildSourceObject()
@@ -175,6 +188,8 @@ final class Router extends LogAbstract
 
 
     /**
+     * Write out the log message to the assigned channels
+     *
      * @param mixed|string $level
      * @param string       $message
      * @param array        $context
@@ -212,6 +227,7 @@ final class Router extends LogAbstract
             foreach ($this->_aChannels[$level] AS $oHandler)
             {
                 $oHandler->setFieldValues($aContexts);
+                $oHandler->setLevel($level);
                 if ($this->_block) $oHandler->disable();
                 $oHandler->write($message);
                 $oHandler->enable();
@@ -219,11 +235,14 @@ final class Router extends LogAbstract
         } else {
             switch ($level)
             {
-                case LogLevel::WARNING:
-                case LogLevel::ERROR:
+                case LogLevel::EMERGENCY:
+                case LogLevel::ALERT:
                 case LogLevel::CRITICAL:
+                case LogLevel::ERROR:
+                case LogLevel::WARNING:
                     $oHandler = ChannelFactory::Basic();
                     $oHandler->setFieldValues($aContexts);
+                    $oHandler->setLevel($level);
                     if ($this->_block) $oHandler->disable();
                     $oHandler->write($message);
                     $oHandler->enable();
@@ -248,8 +267,7 @@ final class Router extends LogAbstract
      * Assign an optional tag which is prefixed to the log output
      *
      * @deprecated
-     * @static
-     * @param $tag string
+     * @param $tag string optional tag prefixed to the log output
      */
     public function setTag($tag)
     {
@@ -267,7 +285,6 @@ final class Router extends LogAbstract
      * Return the current tag value
      *
      * @deprecated
-     * @static
      * @return string
      */
     public function getTag()
@@ -280,7 +297,6 @@ final class Router extends LogAbstract
     /**
      * Set a project name used across the debugging
      *
-     * @static
      * @param $name string limited to 20 characters
      */
     public function setName($name)
@@ -300,7 +316,8 @@ final class Router extends LogAbstract
 
 
     /**
-     * @static
+     * project name
+     *
      * @return string current project name
      */
     public function getName()

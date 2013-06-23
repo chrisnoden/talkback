@@ -29,13 +29,24 @@ namespace Talkback\Channel;
 use Talkback\Exception\ChannelException;
 use Talkback\Exception\InvalidArgumentException;
 
+/**
+ * Class ChannelFactory
+ * Create and return a Channel object
+ *
+ * @category Talkback\Channel
+ * @package  talkback
+ * @author   Chris Noden <chris.noden@gmail.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+ * @link     https://github.com/chrisnoden/synergy
+ */
 /** @noinspection PhpDocSignatureInspection */
 class ChannelFactory
 {
 
     /**
-     * A fall-back channel which just outputs to console/stdout/browser
+     * A fall-back channel which just outputs to console/stderr/browser
      *
+     * @static
      * @return ChannelObject
      * @throws \Exception
      */
@@ -43,7 +54,11 @@ class ChannelFactory
     {
         try {
             if (PHP_SAPI == 'cli') {
-                $oComms = new Console();
+                if (defined('PHP_WINDOWS_VERSION_MAJOR')) {
+                    $oComms = new Console();
+                } else {
+                    $oComms = new StdErr();
+                }
                 return $oComms;
             } else {
                 $oComms = new Html();
@@ -60,7 +75,44 @@ class ChannelFactory
 
 
     /**
+     * Outputs to Console (falls back to just echo'ing on Windows)
+     *
+     * @static
+     * @return Console
+     * @throws \Exception
+     */
+    public static function Console()
+    {
+        try {
+            $oComms = new Console();
+            return $oComms;
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+    }
+
+
+    /**
+     * Outputs to StdErr (falls back to just echo'ing on Windows)
+     *
+     * @static
+     * @return StdErr
+     * @throws \Exception
+     */
+    public static function StdErr()
+    {
+        try {
+            $oComms = new StdErr();
+            return $oComms;
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+    }
+
+
+    /**
      * @param $filename string filename where the file will be created or appended
+     *
      * @static
      * @return File
      * @throws \Exception
@@ -111,9 +163,10 @@ class ChannelFactory
 
 
     /**
-     * @static
      * @param $appName string
      * @param $apiKey string You can add up to 5 Prowl Api Keys - but need at least 1
+     *
+     * @static
      * @return Prowl
      * @throws \Exception
      */

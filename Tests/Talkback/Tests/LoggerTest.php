@@ -90,11 +90,15 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Tests the very basic assertion that an ERROR should be written
-     * out to the client with just a newline char appended
+     * out to the client (on Windows) or STDERR on Linux/Unix
      */
     public function testLoggerConsoleOutput()
     {
-        $this->expectOutputString("hello, this is a test log\n");
+        if (defined('PHP_WINDOWS_VERSION_MAJOR')) {
+            $this->expectOutputString("hello, this is a test log\n");
+        } else {
+            $this->expectOutputString("");
+        }
         $obj = Logger::getLogger('test logger');
         $obj->log(LogLevel::ERROR, "hello, this is a test log");
     }

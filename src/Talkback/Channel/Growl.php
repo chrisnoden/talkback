@@ -24,11 +24,19 @@
  * @link      https://github.com/chrisnoden
  */
 
-
 namespace Talkback\Channel;
 
 use Talkback\Exception\InvalidArgumentException;
 
+/**
+ * Class Growl
+ *
+ * @category Channel\Growl
+ * @package  talkback
+ * @author   Chris Noden <chris.noden@gmail.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+ * @link     https://github.com/chrisnoden/synergy
+ */
 class Growl extends ChannelObject
 {
 
@@ -64,6 +72,7 @@ class Growl extends ChannelObject
 
     /**
      * @param $appName
+     *
      * @throws \Talkback\Exception\InvalidArgumentException
      */
     public function __construct($appName)
@@ -99,7 +108,11 @@ class Growl extends ChannelObject
 
 
     /**
+     * The Growl host
+     *
      * @param $host string hostname or ip of the growl server
+     *
+     * @return void
      */
     public function setHost($host)
     {
@@ -107,8 +120,12 @@ class Growl extends ChannelObject
     }
 
     /**
+     * Timeout connecting to Growl
+     *
      * @param $timeout int seconds
+     *
      * @throws \Talkback\Exception\InvalidArgumentException
+     * @return void
      */
     public function setTimeout($timeout)
     {
@@ -120,7 +137,11 @@ class Growl extends ChannelObject
     }
 
     /**
+     * Your Growl password
+     *
      * @param $password growl server password
+     *
+     * @return void
      */
     public function setPassword($password)
     {
@@ -132,6 +153,7 @@ class Growl extends ChannelObject
      * Send the message to Growl
      *
      * @param string $message
+     *
      * @return ChannelObject|void
      * @throws \Net_Growl_Exception
      */
@@ -160,6 +182,5 @@ class Growl extends ChannelObject
         }
         parent::written();
     }
-
 
 }

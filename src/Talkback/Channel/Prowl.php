@@ -32,8 +32,15 @@ use Talkback\Exception\InvalidArgumentException;
 use Talkback\Exception\ChannelTargetException;
 
 /**
+ * Class Growl
  * Uses the Prowl API to send messages to the Prowl app
  * Has a rudimentary de-duper to stop you getting duplicate messages
+ *
+ * @category Channel\Growl
+ * @package  talkback
+ * @author   Chris Noden <chris.noden@gmail.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+ * @link     https://github.com/chrisnoden/synergy
  */
 class Prowl extends ChannelObject
 {
@@ -75,6 +82,13 @@ class Prowl extends ChannelObject
     }
 
 
+    /**
+     * Output the message to Prowl
+     *
+     * @param string $message
+     *
+     * @return void
+     */
     public function write($message)
     {
         parent::write($message);
@@ -88,7 +102,9 @@ class Prowl extends ChannelObject
 
     /**
      * Send the message through the Prowl API
+     *
      * @param $message
+     *
      * @throws \Talkback\Exception\ChannelTargetException
      * @throws \Talkback\Exception\InvalidArgumentException
      */
@@ -144,7 +160,10 @@ class Prowl extends ChannelObject
      * You can add up to 5 unique Prowl API keys
      *
      * @link https://www.prowlapp.com/register.php
+     *
      * @param $apiKey string
+     *
+     * @return void
      */
     public function addApiKey($apiKey)
     {
@@ -155,8 +174,12 @@ class Prowl extends ChannelObject
 
 
     /**
+     * Name this event
+     *
      * @param $eventName string
+     *
      * @throws \Talkback\Exception\InvalidArgumentException
+     * @return void
      */
     public function setEventName($eventName)
     {

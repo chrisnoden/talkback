@@ -29,8 +29,15 @@ namespace Talkback\Channel;
 use Talkback\Exception\InvalidArgumentException;
 
 /**
+ * Class Growl
  * Provides a Syslog messaging object
  * So you can send messages to Syslog
+ *
+ * @category Channel\Growl
+ * @package  talkback
+ * @author   Chris Noden <chris.noden@gmail.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+ * @link     https://github.com/chrisnoden/synergy
  */
 class Syslog extends ChannelObject
 {
@@ -66,8 +73,12 @@ class Syslog extends ChannelObject
 
 
     /**
+     * SysLog facility (defaults to LOG_LOCAL4)
+     *
      * @param $facility
+     *
      * @throws \Talkback\Exception\InvalidArgumentException
+     * @return void
      */
     public function setFacility($facility)
     {
@@ -102,8 +113,12 @@ class Syslog extends ChannelObject
 
 
     /**
+     * Set the SysLog option (defaults to LOG_PID)
+     *
      * @param $option
+     *
      * @throws \Talkback\Exception\InvalidArgumentException
+     * @return void
      */
     public function setOption($option)
     {
@@ -124,6 +139,8 @@ class Syslog extends ChannelObject
 
 
     /**
+     * The name of the syslog handler
+     *
      * @return mixed|string
      */
     public function getName()
@@ -170,7 +187,10 @@ class Syslog extends ChannelObject
 
 
     /**
+     * Send the message to SysLog
+     *
      * @param string $message
+     *
      * @return ChannelObject|void
      */
     public function write($message)

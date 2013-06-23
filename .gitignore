@@ -1,7 +1,7 @@
 .idea
 .svn
 
-# Dev Composer files
+# Composer files
 vendor/*
 
 # Net_Growl .svn

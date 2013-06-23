@@ -27,8 +27,15 @@
 namespace Talkback\Channel;
 
 /**
+ * Class Growl
  * This class implements HTML logging
  * storing the messages and outputting them after your script has terminated
+ *
+ * @category Channel\Growl
+ * @package  talkback
+ * @author   Chris Noden <chris.noden@gmail.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+ * @link     https://github.com/chrisnoden/synergy
  */
 class Html extends ChannelObject
 {
@@ -115,6 +122,7 @@ class Html extends ChannelObject
 
     /**
      * @param $msg string output the string
+     *
      * @return ChannelObject
      */
     public function write($msg)
@@ -159,6 +167,11 @@ class Html extends ChannelObject
     }
 
 
+    /**
+     * Output everything that's been stored
+     *
+     * @return void
+     */
     public function flush()
     {
         $this->outputTopBlock();
