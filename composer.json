@@ -3,10 +3,10 @@
     "description": "Logging and messaging library that builds upon Psr-3 with Growl, Prowl, Html and other modules",
     "keywords": ["psr-3", "growl", "prowl", "logging"],
     "license": "Apache-2.0",
-    "version": "1.0.2-dev",
+    "version": "1.0.2",
     "homepage": "https://github.com/chrisnoden/talkback",
     "type": "library",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "authors": [
         {
             "name": "Chris Noden",
@@ -19,7 +19,6 @@
     },
     "require": {
         "php": ">=5.3.21",
-        "ext-Core": "*",
         "ext-Reflection": "*",
         "ext-SPL": "*",
         "ext-date": "*",
