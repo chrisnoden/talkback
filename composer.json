@@ -19,7 +19,14 @@
     },
     "require": {
         "php": ">=5.3.21",
+        "ext-Core": "*",
         "ext-Reflection": "*",
+        "ext-SPL": "*",
+        "ext-date": "*",
+        "ext-mbstring": "*",
+        "ext-pcre": "*",
+        "ext-posix": "*",
+        "ext-standard": "*",
         "psr/log": "1.*"
     },
     "require-dev": {
