@@ -59,7 +59,7 @@ class ChannelFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertFileNotExists($this->_testFileName);
         $obj->write("Test");
         $this->assertFileExists($this->_testFileName);
-        $this->assertStringEqualsFile($this->_testFileName, "Test\n");
+        $this->assertStringEqualsFile($this->_testFileName, date("Y/m/d H:i:s") . " Test\n");
     }
 
 

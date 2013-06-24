@@ -60,6 +60,10 @@ class File extends ChannelObject
     public function __construct()
     {
         parent::__construct();
+
+        // default to add the timestamp field
+        $this->addTimestamp();
+        $this->setFieldDelimiter(' ');
     }
 
 
