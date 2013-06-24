@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  * @category  File
- * @package   talkback
+ * @package   Talkback
  * @author    Chris Noden <chris.noden@gmail.com>
  * @copyright 2013 Chris Noden
  * @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
