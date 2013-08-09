@@ -5,7 +5,7 @@
     "license": "Apache-2.0",
     "homepage": "https://github.com/chrisnoden/talkback",
     "type": "library",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Chris Noden",
@@ -27,7 +27,7 @@
         "psr/log": "1.*"
     },
     "require-dev": {
-        "xenji/prowlphp": "1.*",
+        "xenji/prowlphp": "dev-master",
         "wp-cli/php-cli-tools": "dev-master"
     },
     "suggest": {

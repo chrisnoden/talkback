@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e18ede530b99e28f7a62f414a1ea4f7d",
+    "hash": "3e600a179e5dbb0c7e5fe148274a7619",
     "packages": [
         {
             "name": "psr/log",
@@ -92,16 +92,16 @@
         },
         {
             "name": "xenji/prowlphp",
-            "version": "1.0.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git://github.com/xenji/ProwlPHP.git",
-                "reference": "1.0.3"
+                "url": "https://github.com/xenji/ProwlPHP.git",
+                "reference": "413e7289a97bdec399d6c9a3f14cb8baf3dcf252"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/xenji/ProwlPHP/zipball/1.0.3",
-                "reference": "1.0.3",
+                "url": "https://api.github.com/repos/xenji/ProwlPHP/zipball/413e7289a97bdec399d6c9a3f14cb8baf3dcf252",
+                "reference": "413e7289a97bdec399d6c9a3f14cb8baf3dcf252",
                 "shasum": ""
             },
             "require": {
@@ -130,14 +130,15 @@
                 "api",
                 "webservices"
             ],
-            "time": "2012-03-13 07:22:21"
+            "time": "2013-01-12 19:54:32"
         }
     ],
     "aliases": [
 
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
+        "xenji/prowlphp": 20,
         "wp-cli/php-cli-tools": 20
     },
     "platform": {
