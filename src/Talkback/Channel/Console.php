@@ -42,7 +42,7 @@ class Console extends ChannelObject
     /**
      * @var bool use the STDOUT and similar streams
      */
-    private $_useStream = true;
+    private $useStream = true;
 
 
     public function __construct()
@@ -53,7 +53,7 @@ class Console extends ChannelObject
         $this->_aFieldTitles = array('linenum' => 'line:');
 
         if (!class_exists('\cli\Streams')) {
-            $this->_useStream = false;
+            $this->useStream = false;
         }
     }
 
@@ -71,7 +71,7 @@ class Console extends ChannelObject
         $msg = parent::prepareMessage($msg, $aSkipFields);
 
         if (!is_null($this->_level)) {
-            if ($this->_useStream && !defined('PHP_WINDOWS_VERSION_MAJOR')) {
+            if ($this->useStream && !defined('PHP_WINDOWS_VERSION_MAJOR')) {
                 $msg = sprintf(
                     '%%R%s%%n:%s', $this->_level, $msg
                 );
@@ -100,7 +100,7 @@ class Console extends ChannelObject
 
         if (defined('PHP_WINDOWS_VERSION_MAJOR')) {
             printf('%s'.PHP_EOL, $msg);
-        } else if ($this->_useStream && !is_null($this->_level)) {
+        } else if ($this->useStream && !is_null($this->_level)) {
             \cli\line($msg);
         } else {
             print($msg.PHP_EOL);
@@ -120,9 +120,9 @@ class Console extends ChannelObject
     public function setUseStream($useStream)
     {
         if ($useStream == true && class_exists('\cli\Streams')) {
-            $this->_useStream = true;
+            $this->useStream = true;
         } else {
-            $this->_useStream = false;
+            $this->useStream = false;
         }
     }
 

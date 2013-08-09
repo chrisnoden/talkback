@@ -37,37 +37,37 @@ use Talkback\Exception\InvalidArgumentException;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  * @link     https://github.com/chrisnoden/synergy
  */
-class Growl extends ChannelObject
+class Growl extends ChannelObject implements ChannelInterface
 {
 
     /**
      * @var string Name of the Application
      */
-    private $_applicationName;
+    private $applicationName;
     /**
      * @var string
      */
-    private $_growl_password = '';
+    private $growl_password = '';
     /**
      * @var string ip address or hostname of the growl server
      */
-    private $_growl_host = '127.0.0.1';
+    private $growl_host = '127.0.0.1';
     /**
      * @var string growl protocol type
      */
-    private $_growl_protocol = 'tcp';
+    private $growl_protocol = 'tcp';
     /**
      * @var int growl port
      */
-    private $_growl_port;
+    private $growl_port;
     /**
      * @var int timeout for growl server connections
      */
-    private $_growl_timeout = 5;
+    private $growl_timeout = 5;
     /**
      * @var array the different notification types available
      */
-    private $_growl_notifications = array();
+    private $growl_notifications = array();
 
 
     /**
@@ -80,15 +80,19 @@ class Growl extends ChannelObject
         parent::__construct();
 
         if (is_string($appName) && mb_strlen($appName, 'utf-8') > 0 && mb_strlen($appName, 'utf-8') < 50) {
-            $this->_applicationName = trim($appName);
+            $this->applicationName = trim($appName);
         } else {
             throw new InvalidArgumentException("Growl appName must be a string, max 50 chars");
         }
 
         // Notification Type definitions
-        if (!defined('GROWL_NOTIFY_STATUS')) define('GROWL_NOTIFY_STATUS', 'GROWL_NOTIFY_STATUS');
-        if (!defined('GROWL_NOTIFY_PHPERROR')) define('GROWL_NOTIFY_PHPERROR', 'GROWL_NOTIFY_PHPERROR');
-        $this->_growl_notifications = array(
+        if (!defined('GROWL_NOTIFY_STATUS')) {
+            define('GROWL_NOTIFY_STATUS', 'GROWL_NOTIFY_STATUS');
+        }
+        if (!defined('GROWL_NOTIFY_PHPERROR')) {
+            define('GROWL_NOTIFY_PHPERROR', 'GROWL_NOTIFY_PHPERROR');
+        }
+        $this->growl_notifications = array(
             GROWL_NOTIFY_STATUS => array(
                 'display' => 'Status'
             ),
@@ -96,7 +100,7 @@ class Growl extends ChannelObject
                 'display' => 'Error-Log'
             )
         );
-        $this->_growl_port = \Net_Growl::GNTP_PORT;
+        $this->growl_port = \Net_Growl::GNTP_PORT;
         $this->_trapLevels = E_USER_ERROR | E_USER_WARNING;
     }
 
@@ -116,7 +120,7 @@ class Growl extends ChannelObject
      */
     public function setHost($host)
     {
-        $this->_growl_host = $host;
+        $this->growl_host = $host;
     }
 
     /**
@@ -130,7 +134,7 @@ class Growl extends ChannelObject
     public function setTimeout($timeout)
     {
         if (is_int($timeout)) {
-            $this->_growl_timeout = $timeout;
+            $this->growl_timeout = $timeout;
         } else {
             throw new InvalidArgumentException("timeout must be an integer");
         }
@@ -145,7 +149,7 @@ class Growl extends ChannelObject
      */
     public function setPassword($password)
     {
-        $this->_growl_password = $password;
+        $this->growl_password = $password;
     }
 
 
@@ -159,28 +163,27 @@ class Growl extends ChannelObject
      */
     public function write($message)
     {
-        parent::write($message);
-        if ($this->_enabled) {
-            $growl_options = array(
-                'host' => $this->_growl_host,
-                'protocol' => $this->_growl_protocol,
-                'port' => $this->_growl_port,
-                'timeout' => $this->_growl_timeout
-            );
+        if ($this->functional) {
+            parent::write($message);
+            if ($this->_enabled) {
+                $growl_options = array(
+                    'host' => $this->growl_host,
+                    'protocol' => $this->growl_protocol,
+                    'port' => $this->growl_port,
+                    'timeout' => $this->growl_timeout
+                );
 
-            try
-            {
-                $growl = @\Net_Growl::singleton($this->_applicationName, $this->_growl_notifications, $this->_growl_password, $growl_options);
-                $growl_name = GROWL_NOTIFY_STATUS;
-                $growl->notify($growl_name, $this->_applicationName, $message, $growl_options);
-                $growl = null;
+                try {
+                    $growl = @\Net_Growl::singleton($this->applicationName, $this->growl_notifications, $this->growl_password, $growl_options);
+                    $growl_name = GROWL_NOTIFY_STATUS;
+                    $growl->notify($growl_name, $this->applicationName, $message, $growl_options);
+                    $growl = null;
+                } catch (\Net_Growl_Exception $ex) {
+                    $this->functional = false;
+                }
             }
-            catch (\Net_Growl_Exception $ex)
-            {
-                throw $ex;
-            }
+            parent::written();
         }
-        parent::written();
     }
 
 }

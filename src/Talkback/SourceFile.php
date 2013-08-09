@@ -37,19 +37,19 @@ class SourceFile extends Object
     /**
      * @var string absolute filename
      */
-    private $_filename;
+    private $filename;
     /**
      * @var string relative filename (relative to the SAL base/root directory)
      */
-    private $_relFilename;
+    private $relFilename;
     /**
      * @var int
      */
-    private $_lineNum;
+    private $lineNum;
     /**
      * @var string
      */
-    private $_className;
+    private $className;
 
 
     /**
@@ -58,10 +58,10 @@ class SourceFile extends Object
     public function setFilename($filename)
     {
         if (is_string($filename)) {
-            $this->_filename = $filename;
+            $this->filename = $filename;
 
             if (defined('SAL_BASE_DIRECTORY')) {
-                $this->_relFilename = str_replace(SAL_BASE_DIRECTORY . DIRECTORY_SEPARATOR, '', $filename);
+                $this->relFilename = str_replace(SAL_BASE_DIRECTORY . DIRECTORY_SEPARATOR, '', $filename);
             }
         }
     }
@@ -73,7 +73,7 @@ class SourceFile extends Object
     public function setLineNum($lineNum)
     {
         if (is_int($lineNum)) {
-            $this->_lineNum = $lineNum;
+            $this->lineNum = $lineNum;
         }
     }
 
@@ -84,7 +84,7 @@ class SourceFile extends Object
     public function setClassName($className)
     {
         if (is_string($className)) {
-            $this->_className = $className;
+            $this->className = $className;
         }
     }
 
@@ -94,8 +94,8 @@ class SourceFile extends Object
      */
     public function getFilename()
     {
-        if (isset($this->_filename)) {
-            return $this->_filename;
+        if (isset($this->filename)) {
+            return $this->filename;
         }
         return '';
     }
@@ -106,8 +106,8 @@ class SourceFile extends Object
      */
     public function getRelativeFilename()
     {
-        if (isset($this->_relFilename)) {
-            return $this->_relFilename;
+        if (isset($this->relFilename)) {
+            return $this->relFilename;
         }
         return '';
     }
@@ -118,8 +118,8 @@ class SourceFile extends Object
      */
     public function getLineNum()
     {
-        if (isset($this->_lineNum)) {
-            return $this->_lineNum;
+        if (isset($this->lineNum)) {
+            return $this->lineNum;
         }
         return 0;
     }
@@ -130,7 +130,7 @@ class SourceFile extends Object
      */
     public function getClassName()
     {
-        return $this->_className;
+        return $this->className;
     }
 
 }

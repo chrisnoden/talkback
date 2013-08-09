@@ -48,19 +48,19 @@ class Prowl extends ChannelObject
     /**
      * @var string Name of the Application
      */
-    private $_applicationName;
+    private $applicationName;
     /**
      * @var array log of messages to prevent dupes
      */
-    private static $_aMessages = array();
+    private static $aMessages = array();
     /**
      * @var array up to 5 unique Prowl API keys
      */
-    private $_aApiKey = array();
+    private $aApiKey = array();
     /**
      * @var string an event name to send to Prowl
      */
-    private $_eventName;
+    private $eventName;
 
 
     public function __construct($appName, $apiKey)
@@ -68,7 +68,7 @@ class Prowl extends ChannelObject
         parent::__construct();
 
         if (is_string($appName) && mb_strlen($appName, 'utf-8') > 0 && mb_strlen($appName, 'utf-8') < 255) {
-            $this->_applicationName = trim($appName);
+            $this->applicationName = trim($appName);
         } else {
             throw new InvalidArgumentException("Prowl appName must be a string, max 254 chars");
         }
@@ -92,9 +92,9 @@ class Prowl extends ChannelObject
     public function write($message)
     {
         parent::write($message);
-        if (!in_array($message, self::$_aMessages) && $this->_enabled) {
+        if (!in_array($message, self::$aMessages) && $this->_enabled) {
             $this->sendProwlMessage($message);
-            self::$_aMessages[] = $message;
+            self::$aMessages[] = $message;
         }
         parent::written();
     }
@@ -111,11 +111,11 @@ class Prowl extends ChannelObject
     private function sendProwlMessage($message)
     {
         // We can only send a message if we have at least on API key
-        if (count($this->_aApiKey) == 0) {
+        if (count($this->aApiKey) == 0) {
             throw new ChannelTargetException("Prowl requires you add at least one ApiKey");
         }
         // We need an eventName
-        if (!isset($this->_eventName)) {
+        if (!isset($this->eventName)) {
             throw new ChannelTargetException("Prowl requires you set an eventName up to 1024 chars");
         }
 
@@ -134,12 +134,12 @@ class Prowl extends ChannelObject
             $oProwl->setIsPostRequest(true);
             $oMsg->setPriority(0);
 
-            foreach ($this->_aApiKey AS $apiKey) {
+            foreach ($this->aApiKey AS $apiKey) {
                 $oMsg->addApiKey($apiKey);
             }
-            $oMsg->setEvent($this->_eventName);
+            $oMsg->setEvent($this->eventName);
             $oMsg->setDescription($message);
-            $oMsg->setApplication($this->_applicationName);
+            $oMsg->setApplication($this->applicationName);
 
             $oResponse = $oProwl->push($oMsg);
 
@@ -149,7 +149,7 @@ class Prowl extends ChannelObject
             }
 
         } catch (\InvalidArgumentException $oIAE) {
-            throw new InvalidArgumentException ($oIAE->getMessage());
+            throw new InvalidArgumentException($oIAE->getMessage());
         } catch (\OutOfRangeException $oOORE) {
             throw new ChannelTargetException($oOORE->getMessage());
         }
@@ -167,8 +167,8 @@ class Prowl extends ChannelObject
      */
     public function addApiKey($apiKey)
     {
-        if (count($this->_aApiKey) < 5 && !in_array($apiKey, $this->_aApiKey)) {
-            $this->_aApiKey[] = $apiKey;
+        if (count($this->aApiKey) < 5 && !in_array($apiKey, $this->aApiKey)) {
+            $this->aApiKey[] = $apiKey;
         }
     }
 
@@ -190,7 +190,7 @@ class Prowl extends ChannelObject
             if ($iContentLength > 1024) {
                 throw new InvalidArgumentException('eventName length is limited to 1024 chars. Yours is ' . $iContentLength);
             }
-            $this->_eventName = $eventName;
+            $this->eventName = $eventName;
         } else {
             throw new InvalidArgumentException("eventName must be a string, max length 1024 chars");
         }

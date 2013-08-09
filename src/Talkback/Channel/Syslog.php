@@ -44,15 +44,15 @@ class Syslog extends ChannelObject
     /**
      * @var int
      */
-    private $_facility = LOG_LOCAL4;
+    private $facility = LOG_LOCAL4;
     /**
      * @var int
      */
-    private $_option = LOG_PID;
+    private $option = LOG_PID;
     /**
      * @var bool is our syslog handler open
      */
-    private $_isOpen = false;
+    private $isOpen = false;
 
 
     public function __construct($name)
@@ -104,7 +104,7 @@ class Syslog extends ChannelObject
             LOG_UUCP
         );
         if (is_int($facility) && in_array($facility, $aFacilities)) {
-            $this->_facility = $facility;
+            $this->facility = $facility;
             $this->resetLog();
         } else {
             throw new InvalidArgumentException("facility must be a valid LOG facility constant");
@@ -130,7 +130,7 @@ class Syslog extends ChannelObject
             LOG_PID
         );
         if (is_int($option) && (array_sum($aOptions) & $option)) {
-            $this->_option = $option;
+            $this->option = $option;
             $this->resetLog();
         } else {
             throw new InvalidArgumentException("option must be a valid constant LOG_CONS, LOG_NDELAY, LOG_ODELAY, LOG_PERROR or LOG_PID (default)");
@@ -154,10 +154,10 @@ class Syslog extends ChannelObject
      */
     private function openLog()
     {
-        if (!$this->_isOpen) {
+        if (!$this->isOpen) {
             // open syslog
-            openlog($this->_name, $this->_option, $this->_facility);
-            $this->_isOpen = true;
+            openlog($this->_name, $this->option, $this->facility);
+            $this->isOpen = true;
         }
     }
 
@@ -167,9 +167,9 @@ class Syslog extends ChannelObject
      */
     private function closeLog()
     {
-        if ($this->_isOpen) {
+        if ($this->isOpen) {
             closelog();
-            $this->_isOpen = false;
+            $this->isOpen = false;
         }
     }
 
@@ -179,7 +179,7 @@ class Syslog extends ChannelObject
      */
     private function resetLog()
     {
-        if ($this->_isOpen) {
+        if ($this->isOpen) {
             $this->closeLog();
             $this->openLog();
         }

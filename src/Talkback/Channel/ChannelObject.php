@@ -87,6 +87,10 @@ class ChannelObject extends Object implements ChannelInterface
      * @var string
      */
     protected $_name;
+    /**
+     * @var bool is the channel fully functional
+     */
+    protected $functional = true;
 
 
     public function __construct()
@@ -310,6 +314,18 @@ class ChannelObject extends Object implements ChannelInterface
         }
 
         return $this;
+    }
+
+
+    /**
+     * If this channel functional
+     * The channel handler will disable itself if any critical problem arises
+     *
+     * @return boolean is the channel functional
+     */
+    public function getFunctional()
+    {
+        return $this->functional;
     }
 
 }

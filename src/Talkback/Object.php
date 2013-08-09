@@ -31,11 +31,19 @@ namespace Talkback;
  *
  * @package       SAL
  */
-class Object {
+class Object
+{
 
-    public function __construct() {}
+    public function __construct()
+    {
 
-    public function __destruct() {}
+    }
+
+
+    public function __destruct()
+    {
+
+    }
 
 
     /**
@@ -44,7 +52,8 @@ class Object {
      *
      * @return string name of this class
      */
-    public function __toString() {
+    public function __toString()
+    {
         $class = get_class($this);
         return $class;
     }

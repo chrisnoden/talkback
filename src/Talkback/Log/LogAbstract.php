@@ -90,7 +90,8 @@ abstract class LogAbstract extends AbstractLogger
                 $this->_aValidLogLevels
             );
             throw new InvalidArgumentException(
-                'Invalid LogLevel ('.$level.', must be one of \Psr\Log\LogLevel::' . $logLevels);
+                'Invalid LogLevel ('.$level.', must be one of \Psr\Log\LogLevel::' . $logLevels
+            );
         }
 
         return true;

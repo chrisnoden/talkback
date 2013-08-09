@@ -32,7 +32,7 @@ class Logger extends Singleton
     /**
      * @var array
      */
-    private static $_aLoggers = array();
+    private static $aLoggers = array();
 
 
     /**
@@ -41,14 +41,14 @@ class Logger extends Singleton
      */
     public static function getLogger($loggerName = 'my logger')
     {
-        if (isset(self::$_aLoggers[$loggerName])) {
-            return self::$_aLoggers[$loggerName];
+        if (isset(self::$aLoggers[$loggerName])) {
+            return self::$aLoggers[$loggerName];
         }
 
         $obj = new Router();
         $obj->setName($loggerName);
 
-        self::$_aLoggers[$loggerName] = $obj;
+        self::$aLoggers[$loggerName] = $obj;
         return $obj;
     }
 

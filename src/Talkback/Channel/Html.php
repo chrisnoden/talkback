@@ -43,19 +43,19 @@ class Html extends ChannelObject
     /**
      * @var bool a basic Http Client that doesn't like HTML (eg HTTP Client on Mac App Store)
      */
-    protected $_isBasicHttpClient = false;
+    protected $isBasicHttpClient = false;
     /**
      * @var array cache of messages to output at the end of the HTML block
      */
-    private $_aCachedMessages = array();
+    private $aCachedMessages = array();
     /**
      * @var bool
      */
-    private $_topBlockDone = false;
+    private $topBlockDone = false;
     /**
      * @var bool
      */
-    private $_endBlockDone = false;
+    private $endBlockDone = false;
 
 
     public function __construct()
@@ -66,7 +66,7 @@ class Html extends ChannelObject
 
     public function __destruct()
     {
-        if (count($this->_aCachedMessages) > 0) {
+        if (count($this->aCachedMessages) > 0) {
             $this->flush();
         }
         parent::__destruct();
@@ -75,7 +75,7 @@ class Html extends ChannelObject
 
     private function outputTopBlock()
     {
-        if (!$this->_topBlockDone) {
+        if (!$this->topBlockDone) {
     //        if (headers_sent()) {
             echo "\n\n<hr/>\n\n";
     //        } else {
@@ -92,15 +92,15 @@ class Html extends ChannelObject
             }
             printf("<th>message</th></thead>\n");
 
-            $this->_topBlockDone = true;
+            $this->topBlockDone = true;
         }
     }
 
     private function outputEndBlock()
     {
-        if (!$this->_endBlockDone) {
+        if (!$this->endBlockDone) {
             echo "</table>\n\n\n";
-            $this->_endBlockDone = true;
+            $this->endBlockDone = true;
         }
     }
 
@@ -128,7 +128,7 @@ class Html extends ChannelObject
     public function write($msg)
     {
         parent::write($msg);
-        if ($this->_isBasicHttpClient) {
+        if ($this->isBasicHttpClient) {
             $msg = $this->prepareMessage($msg);
             printf("%s\n", $msg);
         } else {
@@ -145,7 +145,7 @@ class Html extends ChannelObject
                 }
             }
             $arr['message'] = $msg;
-            $this->_aCachedMessages[] = $arr;
+            $this->aCachedMessages[] = $arr;
         }
         parent::written();
     }
@@ -159,7 +159,7 @@ class Html extends ChannelObject
      */
     public function setBasicClient()
     {
-        $this->_isBasicHttpClient = true;
+        $this->isBasicHttpClient = true;
         // If this class is used for Debug logging then these are useful defaults - otherwise they'll likely be ignored
         $this->_fieldDelimiter = ' ';
         $this->_aFieldTitles = array('linenum' => 'line:');
@@ -177,13 +177,13 @@ class Html extends ChannelObject
         $this->outputTopBlock();
 
         // Output our messages
-        foreach ($this->_aCachedMessages AS $aMsg)
+        foreach ($this->aCachedMessages AS $aMsg)
         {
             $this->outputMessage($aMsg);
         }
 
         // empty our cache
-        $this->_aCachedMessages = array();
+        $this->aCachedMessages = array();
 
         $this->outputEndBlock();
     }

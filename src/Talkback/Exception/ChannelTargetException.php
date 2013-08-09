@@ -29,4 +29,7 @@ namespace Talkback\Exception;
 /**
  * There is a problem with the target resource
  */
-class ChannelTargetException extends ChannelException {}
+class ChannelTargetException extends ChannelException
+{
+
+}

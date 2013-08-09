@@ -41,5 +41,3 @@ interface LogInterface extends LoggerInterface
 {
 
 }
-
-

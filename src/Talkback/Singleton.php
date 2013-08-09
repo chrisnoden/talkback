@@ -33,7 +33,9 @@ namespace Talkback;
  */
 abstract class Singleton
 {
+
     protected static $instance = null;
+
 
     public static function getInstance()
     {
@@ -42,10 +44,16 @@ abstract class Singleton
             : static::$instance = new static;
     }
 
-    final private function __construct() {}
 
-    final private function __clone() {}
+    final private function __construct()
+    {
+
+    }
+
+
+    final private function __clone()
+    {
+
+    }
 
 }
-
-
