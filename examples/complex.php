@@ -46,7 +46,8 @@ $logger
             \Psr\Log\LogLevel::WARNING,
             \Psr\Log\LogLevel::DEBUG
         ),
-        \Talkback\Channel\ChannelFactory::File('/tmp/test.log'))
+        \Talkback\Channel\ChannelFactory::File('/tmp/test.log')
+    )
     ->addChannel(\Psr\Log\LogLevel::CRITICAL, \Talkback\Channel\ChannelFactory::Basic())
     ->addChannel(\Psr\Log\LogLevel::INFO, \Talkback\Channel\ChannelFactory::Growl('Bundle'));
 

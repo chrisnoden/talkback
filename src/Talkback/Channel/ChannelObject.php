@@ -137,9 +137,10 @@ class ChannelObject extends Object implements ChannelInterface
         }
         if (count($this->_aMessageFields) > 0) {
             $preMsg = '';
-            foreach ($this->_aMessageFields AS $fieldName=>$fieldValue)
-            {
-                if (in_array($fieldName, $aSkipFields)) continue;
+            foreach ($this->_aMessageFields as $fieldName => $fieldValue) {
+                if (in_array($fieldName, $aSkipFields)) {
+                    continue;
+                }
                 if (isset($this->_aFieldTitles[$fieldName])) {
                     $title = $this->_aFieldTitles[$fieldName];
                 } else {
@@ -180,8 +181,7 @@ class ChannelObject extends Object implements ChannelInterface
      */
     public function setFieldValues(array $aContexts)
     {
-        foreach ($aContexts AS $fieldName=>$fieldValue)
-        {
+        foreach ($aContexts as $fieldName => $fieldValue) {
             if (!isset($this->_aFields[$fieldName])) {
                 $this->_aFields[$fieldName] = false;
             }
