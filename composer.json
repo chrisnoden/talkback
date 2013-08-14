@@ -7,15 +7,18 @@
     "type": "library",
     "minimum-stability": "dev",
     "authors": [
-        {
-            "name": "Chris Noden",
-            "email": "chris.noden@gmail.com"
-        }
+        { "name": "Chris Noden", "email": "chris.noden@gmail.com", "homepage": "http://www.chrisnoden.com" }
     ],
     "autoload": {
         "psr-0": { "Talkback": "src/" },
         "classmap": [ "src/Net_Growl", "src/Net_Growl/Growl" ]
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/chrisnoden/php-cli-tools"
+        }
+    ],
     "require": {
         "php": ">=5.3.21",
         "ext-reflection": "*",
