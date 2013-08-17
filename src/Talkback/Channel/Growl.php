@@ -37,7 +37,7 @@ use Talkback\Exception\InvalidArgumentException;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  * @link     https://github.com/chrisnoden/synergy
  */
-class Growl extends ChannelObject implements ChannelInterface
+class Growl extends ChannelAbstract implements ChannelInterface
 {
 
     /**
@@ -77,8 +77,6 @@ class Growl extends ChannelObject implements ChannelInterface
      */
     public function __construct($appName)
     {
-        parent::__construct();
-
         if (is_string($appName) && mb_strlen($appName, 'utf-8') > 0 && mb_strlen($appName, 'utf-8') < 50) {
             $this->applicationName = trim($appName);
         } else {
@@ -102,12 +100,6 @@ class Growl extends ChannelObject implements ChannelInterface
         );
         $this->growl_port = \Net_Growl::GNTP_PORT;
         $this->_trapLevels = E_USER_ERROR | E_USER_WARNING;
-    }
-
-
-    public function __destruct()
-    {
-        parent::__destruct();
     }
 
 
@@ -158,14 +150,13 @@ class Growl extends ChannelObject implements ChannelInterface
      *
      * @param string $message
      *
-     * @return ChannelObject|void
+     * @return ChannelAbstract|void
      * @throws \Net_Growl_Exception
      */
     public function write($message)
     {
         if ($this->functional) {
-            parent::write($message);
-            if ($this->_enabled) {
+            if ($this->enabled) {
                 $growl_options = array(
                     'host' => $this->growl_host,
                     'protocol' => $this->growl_protocol,

@@ -51,7 +51,7 @@ interface ChannelInterface
     /**
      * Enable output to the channel (default)
      *
-     * @return ChannelObject
+     * @return ChannelAbstract
      */
     public function enable();
 
@@ -60,7 +60,7 @@ interface ChannelInterface
      * Disable output to the channel
      * NB - the channel can still choose to ignore this
      *
-     * @return ChannelObject
+     * @return ChannelAbstract
      */
     public function disable();
 
@@ -68,7 +68,7 @@ interface ChannelInterface
     /**
      * @param $delimiter
      *
-     * @return ChannelObject
+     * @return ChannelAbstract
      */
     public function setFieldDelimiter($delimiter);
 
@@ -79,7 +79,7 @@ interface ChannelInterface
      * @param $fieldName
      * @param $displayName
      *
-     * @return ChannelObject
+     * @return ChannelAbstract
      */
     public function showFieldName($fieldName, $displayName);
 
@@ -89,7 +89,7 @@ interface ChannelInterface
      *
      * @param $name
      *
-     * @return ChannelObject
+     * @return ChannelAbstract
      * @throws \Exception
      */
     public function addField($name);

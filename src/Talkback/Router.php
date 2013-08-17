@@ -30,7 +30,7 @@ use Talkback\Log\LogAbstract;
 use Talkback\Log\LogLevel;
 use Talkback\Log\LogInterface;
 use Talkback\Channel\ChannelFactory;
-use Talkback\Channel\ChannelObject;
+use Talkback\Channel\ChannelAbstract;
 use Talkback\Exception\InvalidArgumentException;
 
 /**
@@ -92,12 +92,12 @@ final class Router extends LogAbstract
      * Add a ChannelFactory object to our framework debugger
      *
      * @param $aLevels array set of log levels (eg Talkback\Log\LogLevel::INFO)
-     * @param ChannelObject $oHandler from the ChannelFactory
+     * @param ChannelAbstract $oHandler from the ChannelFactory
      *
      * @return Router
      * @throws \Talkback\Exception\InvalidArgumentException
      */
-    public function addChannel($aLevels, ChannelObject $oHandler)
+    public function addChannel($aLevels, ChannelAbstract $oHandler)
     {
         if (!is_array($aLevels)) {
             $aLevels = array($aLevels);
@@ -119,11 +119,11 @@ final class Router extends LogAbstract
      * Add a new log event handler channel
      *
      * @param $level
-     * @param \Talkback\Channel\ChannelObject $oHandler
+     * @param \Talkback\Channel\ChannelAbstract $oHandler
      *
      * @return void
      */
-    private function addHandler($level, ChannelObject $oHandler)
+    private function addHandler($level, ChannelAbstract $oHandler)
     {
         if (!isset($this->_aChannels[$level])) {
             $this->_aChannels[$level] = array();
@@ -222,7 +222,7 @@ final class Router extends LogAbstract
 
         if (isset($this->_aChannels[$level])) {
             /**
-             * @var $oHandler ChannelObject
+             * @var $oHandler ChannelAbstract
              */
             foreach ($this->_aChannels[$level] AS $oHandler)
             {
@@ -304,7 +304,7 @@ final class Router extends LogAbstract
         $name = trim($name);
         if (is_string($name) && strlen($name) > 0) {
             /**
-             * @var $oModule ChannelObject
+             * @var $oModule ChannelAbstract
              */
             foreach ($this->_aChannels AS $oModule)
             {

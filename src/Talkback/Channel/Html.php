@@ -37,7 +37,7 @@ namespace Talkback\Channel;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  * @link     https://github.com/chrisnoden/synergy
  */
-class Html extends ChannelObject
+class Html extends ChannelAbstract implements ChannelInterface
 {
 
     /**
@@ -58,36 +58,33 @@ class Html extends ChannelObject
     private $endBlockDone = false;
 
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-
     public function __destruct()
     {
         if (count($this->aCachedMessages) > 0) {
             $this->flush();
         }
-        parent::__destruct();
     }
 
 
+    /**
+     * Output our HTML 'top block'
+     *
+     * @return void
+     */
     private function outputTopBlock()
     {
         if (!$this->topBlockDone) {
-    //        if (headers_sent()) {
-            echo "\n\n<hr/>\n\n";
-    //        } else {
-    //            if (Config::about('url')) header('X-Powered-By: '. (string)Config::about('url'));
-    //        }
+            if (headers_sent()) {
+                echo "\n\n<hr/>\n\n";
+            } else {
+                header('X-Logging-By: chrisnoden/Talkback');
+            }
 
             echo "<table style='font-size: small;' border='1' cellspacing='0' cellpadding='2'>\n";
 
             // Display our column headings
             echo "<thead style='font-weight: bold;'>";
-            foreach ($this->_aFields AS $fieldTitle=>$fieldDefaultValue)
-            {
+            foreach ($this->aFields as $fieldTitle => $fieldDefaultValue) {
                 printf("<th>%s</th>", $fieldTitle);
             }
             printf("<th>message</th></thead>\n");
@@ -96,6 +93,12 @@ class Html extends ChannelObject
         }
     }
 
+
+    /**
+     * output the end block
+     *
+     * @return void
+     */
     private function outputEndBlock()
     {
         if (!$this->endBlockDone) {
@@ -105,11 +108,17 @@ class Html extends ChannelObject
     }
 
 
+    /**
+     * Output the messages in the arrayg
+     *
+     * @param $aMsg array of messages
+     *
+     * @return void
+     */
     private function outputMessage($aMsg)
     {
         printf("<tr>");
-        foreach ($this->_aFields AS $fieldTitle=>$fieldDefaultValue)
-        {
+        foreach ($this->aFields as $fieldTitle => $fieldDefaultValue) {
             if (isset($aMsg[$fieldTitle])) {
                 printf("<td valign=\"top\">%s</td>", $aMsg[$fieldTitle]);
             } else {
@@ -121,30 +130,30 @@ class Html extends ChannelObject
 
 
     /**
+     * Output the string to the HTML channel
+     *
      * @param $msg string output the string
      *
-     * @return ChannelObject
+     * @return ChannelAbstract
      */
     public function write($msg)
     {
-        parent::write($msg);
         if ($this->isBasicHttpClient) {
             $msg = $this->prepareMessage($msg);
             printf("%s\n", $msg);
         } else {
             $arr = array();
-            if ($this->_bAddTimestamp) {
+            if ($this->bAddTimestamp) {
                 $arr['timestamp'] = date('Y/m/d H:i:s');
             }
-            foreach ($this->_aMessageFields AS $pfxName=>$pfxValue)
-            {
+            foreach ($this->aMessageFields as $pfxName => $pfxValue) {
                 if ($pfxName == 'timestamp') {
                     continue;
                 } else {
                     $arr[$pfxName] = $pfxValue;
                 }
             }
-            $arr['message'] = $msg;
+            $arr['message']          = $msg;
             $this->aCachedMessages[] = $arr;
         }
         parent::written();
@@ -161,8 +170,8 @@ class Html extends ChannelObject
     {
         $this->isBasicHttpClient = true;
         // If this class is used for Debug logging then these are useful defaults - otherwise they'll likely be ignored
-        $this->_fieldDelimiter = ' ';
-        $this->_aFieldTitles = array('linenum' => 'line:');
+        $this->fieldDelimiter = ' ';
+        $this->aFieldTitles   = array('linenum' => 'line:');
         return $this;
     }
 
@@ -177,8 +186,7 @@ class Html extends ChannelObject
         $this->outputTopBlock();
 
         // Output our messages
-        foreach ($this->aCachedMessages AS $aMsg)
-        {
+        foreach ($this->aCachedMessages as $aMsg) {
             $this->outputMessage($aMsg);
         }
 

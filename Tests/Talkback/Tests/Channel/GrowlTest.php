@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by Chris Noden using JetBrains PhpStorm.
- * 
+ *
  * @author Chris Noden, @chrisnoden
  * @copyright (c) 2009 to 2013 Chris Noden
  */
@@ -20,7 +20,7 @@ class GrowlTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new Growl('Synergy Test');
         $this->assertInstanceOf('Talkback\Channel\Growl', $obj);
-        $this->assertInstanceOf('Talkback\Channel\ChannelObject', $obj);
+        $this->assertInstanceOf('Talkback\Channel\ChannelAbstract', $obj);
         $this->assertInstanceOf('Talkback\Object', $obj);
         $this->assertInstanceOf('Talkback\Channel\Channelinterface', $obj);
         $this->assertEquals('Talkback\Channel\Growl', $obj->__toString());

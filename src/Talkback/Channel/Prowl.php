@@ -42,7 +42,7 @@ use Talkback\Exception\ChannelTargetException;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  * @link     https://github.com/chrisnoden/synergy
  */
-class Prowl extends ChannelObject
+class Prowl extends ChannelAbstract implements ChannelInterface
 {
 
     /**
@@ -65,20 +65,12 @@ class Prowl extends ChannelObject
 
     public function __construct($appName, $apiKey)
     {
-        parent::__construct();
-
         if (is_string($appName) && mb_strlen($appName, 'utf-8') > 0 && mb_strlen($appName, 'utf-8') < 255) {
             $this->applicationName = trim($appName);
         } else {
             throw new InvalidArgumentException("Prowl appName must be a string, max 254 chars");
         }
         $this->addApiKey($apiKey);
-   }
-
-
-    public function __destruct()
-    {
-        parent::__destruct();
     }
 
 
@@ -91,8 +83,7 @@ class Prowl extends ChannelObject
      */
     public function write($message)
     {
-        parent::write($message);
-        if (!in_array($message, self::$aMessages) && $this->_enabled) {
+        if (!in_array($message, self::$aMessages) && $this->enabled) {
             $this->sendProwlMessage($message);
             self::$aMessages[] = $message;
         }
@@ -127,14 +118,16 @@ class Prowl extends ChannelObject
         try {
 
             // You can choose to pass a callback
-            $oProwl->setFilterCallback(function($sText) {
-                return $sText;
-            });
+            $oProwl->setFilterCallback(
+                function ($sText) {
+                    return $sText;
+                }
+            );
 
             $oProwl->setIsPostRequest(true);
             $oMsg->setPriority(0);
 
-            foreach ($this->aApiKey AS $apiKey) {
+            foreach ($this->aApiKey as $apiKey) {
                 $oMsg->addApiKey($apiKey);
             }
             $oMsg->setEvent($this->eventName);

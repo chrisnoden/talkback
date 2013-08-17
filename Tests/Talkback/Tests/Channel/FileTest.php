@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by Chris Noden using JetBrains PhpStorm.
- * 
+ *
  * @author Chris Noden, @chrisnoden
  * @copyright (c) 2009 to 2013 Chris Noden
  */
@@ -17,8 +17,9 @@ class FileTest extends \PHPUnit_Framework_TestCase
     private $_invalidFileName;
 
 
-    public function setUp() {
-        $this->_testFileName = '/private/tmp/test.log';
+    public function setUp()
+    {
+        $this->_testFileName    = '/private/tmp/test.log';
         $this->_invalidFileName = DIRECTORY_SEPARATOR . 'invalidpath' . DIRECTORY_SEPARATOR . 'file.log';
     }
 
@@ -41,7 +42,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new File();
         $this->assertInstanceOf('Talkback\Channel\File', $obj);
-        $this->assertInstanceOf('Talkback\Channel\ChannelObject', $obj);
+        $this->assertInstanceOf('Talkback\Channel\ChannelAbstract', $obj);
         $this->assertInstanceOf('Talkback\Object', $obj);
         $this->assertInstanceOf('Talkback\Channel\Channelinterface', $obj);
         $this->assertEquals('Talkback\Channel\File', $obj->__toString());
@@ -67,7 +68,8 @@ class FileTest extends \PHPUnit_Framework_TestCase
     public function testInvalidFilename()
     {
         $this->setExpectedException(
-            'Talkback\Exception\InvalidArgumentException', 'filename must be an absolute filename in a writeable directory'
+            'Talkback\Exception\InvalidArgumentException',
+            'filename must be an absolute filename in a writeable directory'
         );
         $obj = new File();
         $obj->setFilename($this->_invalidFileName);

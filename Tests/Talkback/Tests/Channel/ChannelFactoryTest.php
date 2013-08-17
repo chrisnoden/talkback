@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by Chris Noden using JetBrains PhpStorm.
- * 
+ *
  * @author Chris Noden, @chrisnoden
  * @copyright (c) 2009 to 2013 Chris Noden
  */
@@ -20,8 +20,9 @@ class ChannelFactoryTest extends \PHPUnit_Framework_TestCase
     private $_invalidFileName;
 
 
-    public function setUp() {
-        $this->_testFileName = '/private/tmp/test.log';
+    public function setUp()
+    {
+        $this->_testFileName    = '/private/tmp/test.log';
         $this->_invalidFileName = DIRECTORY_SEPARATOR . 'invalidpath' . DIRECTORY_SEPARATOR . 'file.log';
 
         if (file_exists($this->_testFileName)) {
@@ -53,7 +54,7 @@ class ChannelFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $obj = ChannelFactory::File($this->_testFileName);
         $this->assertInstanceOf('Talkback\Channel\File', $obj);
-        $this->assertInstanceOf('Talkback\Channel\ChannelObject', $obj);
+        $this->assertInstanceOf('Talkback\Channel\ChannelAbstract', $obj);
         $this->assertInstanceOf('Talkback\Object', $obj);
         $this->assertInstanceOf('Talkback\Channel\Channelinterface', $obj);
         $this->assertFileNotExists($this->_testFileName);
@@ -70,7 +71,8 @@ class ChannelFactoryTest extends \PHPUnit_Framework_TestCase
     public function testFileChannelEmptyNameException()
     {
         $this->setExpectedException(
-            'Talkback\Exception\InvalidArgumentException', 'filename must be an absolute filename in a writeable directory'
+            'Talkback\Exception\InvalidArgumentException',
+            'filename must be an absolute filename in a writeable directory'
         );
         /** @noinspection PhpUnusedLocalVariableInspection */
         $obj = ChannelFactory::File('');
@@ -84,7 +86,8 @@ class ChannelFactoryTest extends \PHPUnit_Framework_TestCase
     public function testFileChannelInvalidNameException()
     {
         $this->setExpectedException(
-            'Talkback\Exception\InvalidArgumentException', 'filename must be an absolute filename in a writeable directory'
+            'Talkback\Exception\InvalidArgumentException',
+            'filename must be an absolute filename in a writeable directory'
         );
         /** @noinspection PhpUnusedLocalVariableInspection */
         $obj = ChannelFactory::File($this->_invalidFileName);
@@ -98,7 +101,7 @@ class ChannelFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $obj = ChannelFactory::Growl('testapp');
         $this->assertInstanceOf('Talkback\Channel\Growl', $obj);
-        $this->assertInstanceOf('Talkback\Channel\ChannelObject', $obj);
+        $this->assertInstanceOf('Talkback\Channel\ChannelAbstract', $obj);
         $this->assertInstanceOf('Talkback\Object', $obj);
         $this->assertInstanceOf('Talkback\Channel\Channelinterface', $obj);
     }
@@ -111,7 +114,7 @@ class ChannelFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new Html();
         $this->assertInstanceOf('Talkback\Channel\Html', $obj);
-        $this->assertInstanceOf('Talkback\Channel\ChannelObject', $obj);
+        $this->assertInstanceOf('Talkback\Channel\ChannelAbstract', $obj);
         $this->assertInstanceOf('Talkback\Object', $obj);
         $this->assertInstanceOf('Talkback\Channel\Channelinterface', $obj);
         $obj->setBasicClient();
@@ -132,7 +135,7 @@ class ChannelFactoryTest extends \PHPUnit_Framework_TestCase
         if (class_exists('Prowl\Message')) {
             $obj = ChannelFactory::Prowl('My Test App', 'testapikey');
             $this->assertInstanceOf('Talkback\Channel\Prowl', $obj);
-            $this->assertInstanceOf('Talkback\Channel\ChannelObject', $obj);
+            $this->assertInstanceOf('Talkback\Channel\ChannelAbstract', $obj);
             $this->assertInstanceOf('Talkback\Object', $obj);
             $this->assertInstanceOf('Talkback\Channel\Channelinterface', $obj);
 

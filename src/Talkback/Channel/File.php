@@ -44,23 +44,21 @@ use Talkback\Exception\ChannelTargetException;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  * @link     https://github.com/chrisnoden/synergy
  */
-class File extends ChannelObject
+class File extends ChannelAbstract implements ChannelInterface
 {
 
     /**
      * @var string
      */
-    protected $_filename;
+    protected $filename;
     /**
      * @var resource
      */
-    protected $_fh;
+    protected $fh;
 
 
     public function __construct()
     {
-        parent::__construct();
-
         // default to add the timestamp field
         $this->addTimestamp();
         $this->setFieldDelimiter(' ');
@@ -70,7 +68,6 @@ class File extends ChannelObject
     public function __destruct()
     {
         $this->closeFH();
-        parent::__destruct();
     }
 
 
@@ -81,16 +78,16 @@ class File extends ChannelObject
      */
     protected function openFH()
     {
-        if (!is_resource($this->_fh)) {
-            if (isset($this->_filename)) {
-                $fh = @fopen($this->_filename, 'a');
+        if (!is_resource($this->fh)) {
+            if (isset($this->filename)) {
+                $fh = @fopen($this->filename, 'a');
                 if (is_resource($fh)) {
-                    $this->_fh = $fh;
+                    $this->fh = $fh;
                 } else {
-                    throw new ChannelTargetException(sprintf("Invalid filename, unable to open for append (%s)", $this->_filename));
+                    throw new ChannelTargetException(sprintf("Invalid filename, unable to open for append (%s)", $this->filename));
                 }
             } else {
-                throw new ChannelTargetException(sprintf("Invalid filename: %s", $this->_filename));
+                throw new ChannelTargetException(sprintf("Invalid filename: %s", $this->filename));
             }
         }
     }
@@ -101,9 +98,9 @@ class File extends ChannelObject
      */
     protected function closeFH()
     {
-        if (is_resource($this->_fh)) {
-            @fclose($this->_fh);
-            $this->_fh = null;
+        if (is_resource($this->fh)) {
+            @fclose($this->fh);
+            $this->fh = null;
         }
     }
 
@@ -131,7 +128,7 @@ class File extends ChannelObject
                 $filename .= '.' . $parts['extension'];
             }
 
-            $this->_filename = $filename;
+            $this->filename = $filename;
         } else {
             throw new InvalidArgumentException("filename must be an absolute filename in a writeable directory");
         }
@@ -144,12 +141,11 @@ class File extends ChannelObject
      */
     public function write($msg)
     {
-        parent::write($msg);
-        if ($this->_enabled) {
+        if ($this->enabled) {
             $this->openFH();
             $msg = $this->prepareMessage($msg);
             $msg .= "\n";
-            fputs($this->_fh, $msg, strlen($msg));
+            fputs($this->fh, $msg, strlen($msg));
         }
         parent::written();
     }

@@ -47,7 +47,7 @@ class ChannelFactory
      * A fall-back channel which just outputs to console/stderr/browser
      *
      * @static
-     * @return ChannelObject
+     * @return ChannelAbstract
      * @throws \Exception
      */
     public static function Basic()
@@ -62,7 +62,12 @@ class ChannelFactory
                 return $oComms;
             } else {
                 $oComms = new Html();
-                if (isset($_SERVER['HTTP_USER_AGENT']) && substr($_SERVER['HTTP_USER_AGENT'], 0, 13) == 'HTTP%20Client') {
+                if (isset($_SERVER['HTTP_USER_AGENT']) && substr(
+                        $_SERVER['HTTP_USER_AGENT'],
+                        0,
+                        13
+                    ) == 'HTTP%20Client'
+                ) {
                     ini_set('html_errors', 0); // disable HTML markup in errors (works on xDebug too)
                     $oComms->setBasicClient();
                 }
@@ -131,6 +136,7 @@ class ChannelFactory
 
     /**
      * @param $appName string Application name used by Growl
+     *
      * @static
      * @return Growl
      * @throws \Exception

@@ -31,7 +31,7 @@ class ProwlTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new Prowl('Synergy Test', $this->_apiKey);
         $this->assertInstanceOf('Talkback\Channel\Prowl', $obj);
-        $this->assertInstanceOf('Talkback\Channel\ChannelObject', $obj);
+        $this->assertInstanceOf('Talkback\Channel\ChannelAbstract', $obj);
         $this->assertInstanceOf('Talkback\Object', $obj);
         $this->assertInstanceOf('Talkback\Channel\Channelinterface', $obj);
         $this->assertEquals('Talkback\Channel\Prowl', $obj->__toString());
@@ -44,7 +44,8 @@ class ProwlTest extends \PHPUnit_Framework_TestCase
     public function testAppNameWrongTypeException()
     {
         $this->setExpectedException(
-            'Talkback\Exception\InvalidArgumentException', 'Prowl appName must be a string, max 254 chars'
+            'Talkback\Exception\InvalidArgumentException',
+            'Prowl appName must be a string, max 254 chars'
         );
         /** @noinspection PhpUnusedLocalVariableInspection */
         $obj = new Prowl(1, $this->_apiKey);
@@ -57,7 +58,8 @@ class ProwlTest extends \PHPUnit_Framework_TestCase
     public function testAppNameEmptyStringException()
     {
         $this->setExpectedException(
-            'Talkback\Exception\InvalidArgumentException', 'Prowl appName must be a string, max 254 chars'
+            'Talkback\Exception\InvalidArgumentException',
+            'Prowl appName must be a string, max 254 chars'
         );
         /** @noinspection PhpUnusedLocalVariableInspection */
         $obj = new Prowl('', $this->_apiKey);
@@ -70,7 +72,8 @@ class ProwlTest extends \PHPUnit_Framework_TestCase
     public function testAppNameTooLongException()
     {
         $this->setExpectedException(
-            'Talkback\Exception\InvalidArgumentException', 'Prowl appName must be a string, max 254 chars'
+            'Talkback\Exception\InvalidArgumentException',
+            'Prowl appName must be a string, max 254 chars'
         );
         /** @noinspection PhpUnusedLocalVariableInspection */
         $obj = new Prowl('This name is aiming to be just a little bit longer than 254 characters in length, we already know it is a string but maybe if I am careful it can just be over the limit which is a very long limit indeed oh my goodness and still it goes on can you believe it', $this->_apiKey);
@@ -95,7 +98,8 @@ class ProwlTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new Prowl('Synergy Test', $this->_apiKey);
         $this->setExpectedException(
-            'Talkback\Exception\ChannelTargetException', 'Prowl requires you set an eventName up to 1024 chars'
+            'Talkback\Exception\ChannelTargetException',
+            'Prowl requires you set an eventName up to 1024 chars'
         );
         $obj->write("This should have failed");
     }

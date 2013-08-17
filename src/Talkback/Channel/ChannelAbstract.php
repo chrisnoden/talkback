@@ -41,76 +41,64 @@ use Talkback\Object;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  * @link     https://github.com/chrisnoden/synergy
  */
-class ChannelObject extends Object implements ChannelInterface
+abstract class ChannelAbstract extends Object
 {
 
     /**
      * @var string Our messaging level (defaults to INFO)
      */
-    protected $_level;
+    protected $level;
     /**
      * @var string
      */
-    protected $_fieldDelimiter = ':';
+    protected $fieldDelimiter = ':';
     /**
      * @var bool has output writing been disabled
      */
-    protected $_enabled = true;
+    protected $enabled = true;
     /**
      * The template fields
      *
      * @var array
      */
-    protected $_aFields = array();
+    protected $aFields = array();
     /**
      * These are the fields we actually drop into our message
      *
      * @var array
      */
-    protected $_aMessageFields = array();
+    protected $aMessageFields = array();
     /**
      * Fields that we will include a title in the output
      *
      * @var array associative array of field name (key) with the text to output
      * @example array('time' => 'time=');
      */
-    protected $_aFieldTitles = array();
+    protected $aFieldTitles = array();
     /**
      * @var bool
      */
-    protected $_bAddTimestamp = false;
+    protected $bAddTimestamp = false;
     /**
      * @var int maximum length of our name
      */
-    protected $_maxNameLength = 30;
+    protected $maxNameLength = 30;
     /**
      * @var string
      */
-    protected $_name;
+    protected $name;
     /**
      * @var bool is the channel fully functional
      */
     protected $functional = true;
 
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-
-    public function __destruct()
-    {
-        parent::__destruct();
-    }
-
-
     /**
+     * Write the string to the Channel
+     *
      * @param $msg string output the string
      */
-    public function write($msg)
-    {
-    }
+    abstract public function write($msg);
 
 
     /**
@@ -119,34 +107,36 @@ class ChannelObject extends Object implements ChannelInterface
      */
     protected function written()
     {
-        $this->_aMessageFields = $this->_aFields;
-        $this->_level = null;
+        $this->aMessageFields = $this->aFields;
+        $this->level          = null;
     }
 
 
     /**
      * Prepares the message for writing out to the channel
+     *
      * @param $msg
      * @param $aSkipFields array of field names to exclude from message
+     *
      * @return string
      */
     protected function prepareMessage($msg, $aSkipFields = array())
     {
-        if ($this->_bAddTimestamp) {
+        if ($this->bAddTimestamp) {
             $this->setFieldValue('timestamp', date('Y/m/d H:i:s'));
         }
-        if (count($this->_aMessageFields) > 0) {
+        if (count($this->aMessageFields) > 0) {
             $preMsg = '';
-            foreach ($this->_aMessageFields as $fieldName => $fieldValue) {
+            foreach ($this->aMessageFields as $fieldName => $fieldValue) {
                 if (in_array($fieldName, $aSkipFields)) {
                     continue;
                 }
-                if (isset($this->_aFieldTitles[$fieldName])) {
-                    $title = $this->_aFieldTitles[$fieldName];
+                if (isset($this->aFieldTitles[$fieldName])) {
+                    $title = $this->aFieldTitles[$fieldName];
                 } else {
                     $title = '';
                 }
-                $preMsg .= $title.$fieldValue.$this->_fieldDelimiter;
+                $preMsg .= $title . $fieldValue . $this->fieldDelimiter;
             }
             $msg = sprintf("%s%s", $preMsg, $msg);
         }
@@ -159,18 +149,19 @@ class ChannelObject extends Object implements ChannelInterface
      * mainly used for logging/debugging - sets the log level
      *
      * @param $level string one of \Psr\Log\LogLevel constants
+     *
      * @throws \Talkback\Exception\InvalidArgumentException
      */
     public function setLevel($level)
     {
-        $t = new LogLevel();
-        $r = new \ReflectionObject($t);
+        $t       = new LogLevel();
+        $r       = new \ReflectionObject($t);
         $aLevels = $r->getConstants();
-        $level = strtolower($level);
+        $level   = strtolower($level);
         if (!in_array($level, $aLevels)) {
             throw new InvalidArgumentException('setLevel($level) must be set with a \Psr\Log\LogLevel const value');
         }
-        $this->_level = $level;
+        $this->level = $level;
     }
 
 
@@ -182,11 +173,11 @@ class ChannelObject extends Object implements ChannelInterface
     public function setFieldValues(array $aContexts)
     {
         foreach ($aContexts as $fieldName => $fieldValue) {
-            if (!isset($this->_aFields[$fieldName])) {
-                $this->_aFields[$fieldName] = false;
+            if (!isset($this->aFields[$fieldName])) {
+                $this->aFields[$fieldName] = false;
             }
         }
-        $this->_aMessageFields = array_replace($this->_aFields, $aContexts);
+        $this->aMessageFields = array_replace($this->aFields, $aContexts);
     }
 
 
@@ -194,14 +185,15 @@ class ChannelObject extends Object implements ChannelInterface
      * Add a field/context to our message
      *
      * @param $name
-     * @return ChannelObject
+     *
+     * @return ChannelAbstract
      * @throws \Talkback\Exception\InvalidArgumentException
      */
     public function addField($name)
     {
         if (is_string($name)) {
-            $name = trim($name);
-            $this->_aFields[$name] = false;
+            $name                 = trim($name);
+            $this->aFields[$name] = false;
         } else {
             throw new InvalidArgumentException("field name must be a string");
         }
@@ -217,8 +209,8 @@ class ChannelObject extends Object implements ChannelInterface
      */
     public function setFieldValue($fieldName, $value)
     {
-        if (isset($this->_aFields[$fieldName])) {
-            $this->_aMessageFields[$fieldName] = $value;
+        if (isset($this->aFields[$fieldName])) {
+            $this->aMessageFields[$fieldName] = $value;
         }
     }
 
@@ -231,7 +223,7 @@ class ChannelObject extends Object implements ChannelInterface
      */
     public function getFields()
     {
-        return $this->_aFields;
+        return $this->aFields;
     }
 
 
@@ -240,11 +232,12 @@ class ChannelObject extends Object implements ChannelInterface
      *
      * @param $fieldName
      * @param $displayName
-     * @return ChannelObject
+     *
+     * @return ChannelAbstract
      */
     public function showFieldName($fieldName, $displayName)
     {
-        $this->_aFieldTitles[$fieldName] = $displayName;
+        $this->aFieldTitles[$fieldName] = $displayName;
         return $this;
     }
 
@@ -253,11 +246,11 @@ class ChannelObject extends Object implements ChannelInterface
      * Disable output to the channel
      * NB - the channel can still choose to ignore this
      *
-     * @return ChannelObject
+     * @return ChannelAbstract
      */
     public function disable()
     {
-        $this->_enabled = false;
+        $this->enabled = false;
         return $this;
     }
 
@@ -265,23 +258,24 @@ class ChannelObject extends Object implements ChannelInterface
     /**
      * Enable output to the channel (default)
      *
-     * @return ChannelObject
+     * @return ChannelAbstract
      */
     public function enable()
     {
-        $this->_enabled = true;
+        $this->enabled = true;
         return $this;
     }
 
 
     /**
      * @param $delimiter
-     * @return ChannelObject
+     *
+     * @return ChannelAbstract
      */
     public function setFieldDelimiter($delimiter)
     {
         if (is_string($delimiter)) {
-            $this->_fieldDelimiter = $delimiter;
+            $this->fieldDelimiter = $delimiter;
         }
         return $this;
     }
@@ -292,7 +286,7 @@ class ChannelObject extends Object implements ChannelInterface
      */
     public function addTimestamp()
     {
-        $this->_bAddTimestamp = true;
+        $this->bAddTimestamp = true;
         $this->addField('timestamp');
         return $this;
     }
@@ -300,17 +294,18 @@ class ChannelObject extends Object implements ChannelInterface
 
     /**
      * @param $name
+     *
      * @return $this
      * @throws \Talkback\Exception\InvalidArgumentException
      */
     public function setName($name)
     {
-        if (is_string($name) && mb_strlen($name, 'utf-8') <= $this->_maxNameLength) {
+        if (is_string($name) && mb_strlen($name, 'utf-8') <= $this->maxNameLength) {
             $name = ucwords($name);
             /** @noinspection PhpUndefinedFieldInspection */
-            $this->_name = preg_replace('/[^0-9a-zA-Z]/', '', $name);
+            $this->name = preg_replace('/[^0-9a-zA-Z]/', '', $name);
         } else {
-            throw new InvalidArgumentException("Syslog name must be a string, max {$this->_maxNameLength} chars");
+            throw new InvalidArgumentException("Syslog name must be a string, max {$this->maxNameLength} chars");
         }
 
         return $this;

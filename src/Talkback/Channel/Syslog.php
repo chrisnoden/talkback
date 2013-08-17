@@ -39,8 +39,9 @@ use Talkback\Exception\InvalidArgumentException;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  * @link     https://github.com/chrisnoden/synergy
  */
-class Syslog extends ChannelObject
+class Syslog extends ChannelAbstract implements ChannelInterface
 {
+
     /**
      * @var int
      */
@@ -57,18 +58,16 @@ class Syslog extends ChannelObject
 
     public function __construct($name)
     {
-        parent::__construct();
         $this->setName($name);
         // If this class is used for Debug logging then these are useful defaults - otherwise they'll likely be ignored
-        $this->_fieldDelimiter = ' ';
-        $this->_aFieldTitles = array('linenum' => 'line:');
+        $this->fieldDelimiter = ' ';
+        $this->aFieldTitles   = array('linenum' => 'line:');
     }
 
 
     public function __destruct()
     {
         $this->closeLog();
-        parent::__destruct();
     }
 
 
@@ -145,7 +144,7 @@ class Syslog extends ChannelObject
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 
 
@@ -156,7 +155,7 @@ class Syslog extends ChannelObject
     {
         if (!$this->isOpen) {
             // open syslog
-            openlog($this->_name, $this->option, $this->facility);
+            openlog($this->name, $this->option, $this->facility);
             $this->isOpen = true;
         }
     }
@@ -191,7 +190,7 @@ class Syslog extends ChannelObject
      *
      * @param string $message
      *
-     * @return ChannelObject|void
+     * @return ChannelAbstract|void
      */
     public function write($message)
     {
@@ -199,8 +198,7 @@ class Syslog extends ChannelObject
         $this->openLog();
 
         // map our log level to a syslog level
-        switch ($this->_level)
-        {
+        switch ($this->level) {
             case 'debug':
                 $syslog_level = LOG_DEBUG;
                 break;

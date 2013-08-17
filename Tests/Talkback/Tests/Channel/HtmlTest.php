@@ -20,7 +20,7 @@ class HtmlTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new Html();
         $this->assertInstanceOf('Talkback\Channel\Html', $obj);
-        $this->assertInstanceOf('Talkback\Channel\ChannelObject', $obj);
+        $this->assertInstanceOf('Talkback\Channel\ChannelAbstract', $obj);
         $this->assertInstanceOf('Talkback\Object', $obj);
         $this->assertInstanceOf('Talkback\Channel\Channelinterface', $obj);
         $this->assertEquals('Talkback\Channel\Html', $obj->__toString());

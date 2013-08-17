@@ -26,7 +26,6 @@
 
 namespace Talkback\Tests\Talkback;
 
-
 use Talkback\Channel\Console;
 use Talkback\Log\LogLevel;
 use Talkback\Channel\ChannelFactory;
@@ -59,8 +58,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         $obj = Logger::getLogger('test3');
 
         $aBuildLevels = array();
-        foreach ($aLogLevels AS $LogLevel)
-        {
+        foreach ($aLogLevels as $LogLevel) {
             $aBuildLevels[] = $LogLevel;
             $obj->addChannel($aBuildLevels, ChannelFactory::Basic());
         }

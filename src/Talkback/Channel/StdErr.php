@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by Chris Noden using JetBrains PhpStorm.
- * 
+ *
  * PHP version 5
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@
  * @link      https://github.com/chrisnoden
  */
 
- namespace Talkback\Channel;
+namespace Talkback\Channel;
 
 /**
  * Class StdErr
@@ -35,16 +35,14 @@
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  * @link     https://github.com/chrisnoden/synergy
  */
-class StdErr extends ChannelObject
+class StdErr extends ChannelAbstract implements ChannelInterface
 {
-
 
     public function __construct()
     {
-        parent::__construct();
         // If this class is used for Debug logging then these are useful defaults - otherwise they'll likely be ignored
-        $this->_fieldDelimiter = ' ';
-        $this->_aFieldTitles = array('linenum' => 'line:');
+        $this->fieldDelimiter = ' ';
+        $this->aFieldTitles   = array('linenum' => 'line:');
     }
 
 
@@ -60,9 +58,11 @@ class StdErr extends ChannelObject
     {
         $msg = parent::prepareMessage($msg, $aSkipFields);
 
-        if (!is_null($this->_level)) {
+        if (!is_null($this->level)) {
             $msg = sprintf(
-                '%s:%s', $this->_level, $msg
+                '%s:%s',
+                $this->level,
+                $msg
             );
         }
 
@@ -74,19 +74,21 @@ class StdErr extends ChannelObject
      * Output the message
      *
      * @param $msg string output the string
-     * @return ChannelObject
+     *
+     * @return ChannelAbstract
      */
     public function write($msg)
     {
-        parent::write($msg);
         $msg = $this->prepareMessage($msg);
 
         if (defined('PHP_WINDOWS_VERSION_MAJOR')) {
-            printf('%s'.PHP_EOL, $msg);
-        } else if (class_exists('\cli\Streams')) {
-            \cli\err($msg);
+            printf('%s' . PHP_EOL, $msg);
         } else {
-            fwrite(STDERR, $msg.PHP_EOL);
+            if (class_exists('\cli\Streams')) {
+                \cli\err($msg);
+            } else {
+                fwrite(STDERR, $msg . PHP_EOL);
+            }
         }
 
         parent::written();

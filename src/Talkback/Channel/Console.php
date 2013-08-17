@@ -36,7 +36,7 @@ namespace Talkback\Channel;
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  * @link     https://github.com/chrisnoden/synergy
  */
-class Console extends ChannelObject
+class Console extends ChannelAbstract implements ChannelInterface
 {
 
     /**
@@ -47,10 +47,9 @@ class Console extends ChannelObject
 
     public function __construct()
     {
-        parent::__construct();
         // If this class is used for Debug logging then these are useful defaults - otherwise they'll likely be ignored
-        $this->_fieldDelimiter = ' ';
-        $this->_aFieldTitles = array('linenum' => 'line:');
+        $this->fieldDelimiter = ' ';
+        $this->aFieldTitles   = array('linenum' => 'line:');
 
         if (!class_exists('\cli\Streams')) {
             $this->useStream = false;
@@ -70,14 +69,18 @@ class Console extends ChannelObject
     {
         $msg = parent::prepareMessage($msg, $aSkipFields);
 
-        if (!is_null($this->_level)) {
+        if (!is_null($this->level)) {
             if ($this->useStream && !defined('PHP_WINDOWS_VERSION_MAJOR')) {
                 $msg = sprintf(
-                    '%%R%s%%n:%s', $this->_level, $msg
+                    '%%R%s%%n:%s',
+                    $this->level,
+                    $msg
                 );
             } else {
                 $msg = sprintf(
-                    '%s:%s', $this->_level, $msg
+                    '%s:%s',
+                    $this->level,
+                    $msg
                 );
             }
         }
@@ -91,19 +94,20 @@ class Console extends ChannelObject
      *
      * @param $msg string output the string
      *
-     * @return ChannelObject
+     * @return ChannelAbstract
      */
     public function write($msg)
     {
-        parent::write($msg);
         $msg = $this->prepareMessage($msg);
 
         if (defined('PHP_WINDOWS_VERSION_MAJOR')) {
-            printf('%s'.PHP_EOL, $msg);
-        } else if ($this->useStream && !is_null($this->_level)) {
-            \cli\line($msg);
+            printf('%s' . PHP_EOL, $msg);
         } else {
-            print($msg.PHP_EOL);
+            if ($this->useStream && !is_null($this->level)) {
+                \cli\line($msg);
+            } else {
+                print($msg . PHP_EOL);
+            }
         }
 
         parent::written();

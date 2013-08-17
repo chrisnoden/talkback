@@ -20,7 +20,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new Console();
         $this->assertInstanceOf('Talkback\Channel\Console', $obj);
-        $this->assertInstanceOf('Talkback\Channel\ChannelObject', $obj);
+        $this->assertInstanceOf('Talkback\Channel\ChannelAbstract', $obj);
         $this->assertInstanceOf('Talkback\Object', $obj);
         $this->assertInstanceOf('Talkback\Channel\Channelinterface', $obj);
         $this->assertEquals('Talkback\Channel\Console', $obj->__toString());
