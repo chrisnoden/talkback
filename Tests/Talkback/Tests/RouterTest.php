@@ -35,7 +35,6 @@ use Talkback\Router;
 class RouterTest extends \PHPUnit_Framework_TestCase
 {
 
-
     /**
      * Test our Router class can be instantiated properly
      */
@@ -51,8 +50,8 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         /**
          * @var $t \Talkback\Log\LogLevel
          */
-        $t = new LogLevel();
-        $r = new \ReflectionObject($t);
+        $t          = new LogLevel();
+        $r          = new \ReflectionObject($t);
         $aLogLevels = $r->getConstants();
 
         $obj = Logger::getLogger('test3');
@@ -67,6 +66,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * You should be able to chain the addHandler calls
+     *
      * @depends testAddingValidHandler
      */
     public function testChainedHandlers()

@@ -32,7 +32,6 @@ use Talkback\Logger;
 class LoggerTest extends \PHPUnit_Framework_TestCase
 {
 
-
     /**
      * The Logger class should be a singleton
      * and should return a \Psr\Log\AbstractLogger inherited object
@@ -44,7 +43,6 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Talkback\Log\LogAbstract', $obj);
         $this->assertInstanceOf('\Psr\Log\AbstractLogger', $obj);
     }
-
 
 
     /**
@@ -102,6 +100,5 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         $obj = Logger::getLogger('test logger');
         $obj->log(LogLevel::ERROR, "hello, this is a test log");
     }
-
 
 }
